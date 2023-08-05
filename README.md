@@ -4,11 +4,11 @@
 
 The Scripts includes :
 
-**1. S3 Bucket Usage
-2. EC2 Instance Usage
-3. Lambda Function Usage
-4. SNS Topic Usage
-5. IAM Users and Usage
-6. Billing Info of AWS Account**
+**1. S3 Bucket Usage**
+**2. EC2 Instance Usage**
+**3. Lambda Function Usage**
+**4. SNS Topic Usage**
+**5. IAM Users and Usage**
+**6. Billing Info of AWS Account**
 
 _Contributions are Welcome_ 😊
