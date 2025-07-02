@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    "*.sh": "shellscript",
+    "*.conf": "properties"
+  },
+  "shellcheck.enable": true,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "git.autofetch": true,
+  "workbench.startupEditor": "readme"
+}

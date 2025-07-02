@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Management Dashboard</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: #232f3e; color: white; padding: 20px; text-align: center; }
+        .card { background: white; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .btn { background: #ff9900; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background: #e88b00; }
+        .loading { text-align: center; color: #666; }
+        .error { color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 4px; }
+        .success { color: #2e7d32; background: #e8f5e8; padding: 10px; border-radius: 4px; }
+        .metric { font-size: 2em; font-weight: bold; color: #232f3e; }
+        input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>🚀 AWS Management Dashboard</h1>
+            <p>Streamlined AWS resource monitoring and management</p>
+        </div>
+        
+        <div class="container">
+            <!-- Resource Overview -->
+            <div class="card">
+                <h2>📊 Resource Overview</h2>
+                <button class="btn" @click="loadResources" :disabled="loading">
+                    {{ loading ? 'Loading...' : 'Refresh Resources' }}
+                </button>
+                <div v-if="resources" class="grid" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3>EC2 Instances</h3>
+                        <div class="metric">{{ resources.ec2_count || 0 }}</div>
+                    </div>
+                    <div class="card">
+                        <h3>S3 Buckets</h3>
+                        <div class="metric">{{ resources.s3_count || 0 }}</div>
+                    </div>
+                    <div class="card">
+                        <h3>Lambda Functions</h3>
+                        <div class="metric">{{ resources.lambda_count || 0 }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Information -->
+            <div class="card">
+                <h2>💰 Billing Information</h2>
+                <button class="btn" @click="loadBilling">Get Billing Data</button>
+                <div v-if="billing" class="success" style="margin-top: 10px;">
+                    <strong>Total Cost:</strong> ${{ billing.amount || 'N/A' }} {{ billing.currency }}
+                </div>
+            </div>
+
+            <!-- MFA Token Generator -->
+            <div class="card">
+                <h2>🔐 MFA Token Generator</h2>
+                <input v-model="mfaToken" placeholder="Enter MFA Token" type="text">
+                <input v-model="awsProfile" placeholder="AWS Profile (default)" type="text">
+                <button class="btn" @click="generateMFA" style="margin-top: 10px;">Generate Credentials</button>
+                <div v-if="mfaResult" class="success" style="margin-top: 10px;">
+                    <pre>{{ mfaResult }}</pre>
+                </div>
+            </div>
+
+            <!-- Security Audit -->
+            <div class="card">
+                <h2>🛡️ Security Audit</h2>
+                <button class="btn" @click="runAudit">Run CloudFront Audit</button>
+                <div v-if="auditResult" style="margin-top: 10px;">
+                    <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px;">{{ auditResult }}</pre>
+                </div>
+            </div>
+
+            <!-- Status Messages -->
+            <div v-if="error" class="error">{{ error }}</div>
+            <div v-if="message" class="success">{{ message }}</div>
+        </div>
+    </div>
+
+    <script src="src/app.js"></script>
+</body>
+</html>

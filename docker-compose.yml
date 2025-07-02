@@ -1,0 +1,30 @@
+# @file docker-compose.yml
+# @brief Full stack deployment
+# @description Complete AWS Management Scripts stack
+
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ~/.aws:/root/.aws:ro
+    networks:
+      - aws-management
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - aws-management
+
+networks:
+  aws-management:
+    driver: bridge

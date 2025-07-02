@@ -1,0 +1,29 @@
+# AWS Management Scripts - Git Ignore
+
+# Sensitive files
+*.cfg
+*_creds
+.aws_temp_creds
+mfa.cfg
+
+# State and logs
+.aws_management_state/
+*.log
+chat/session_*.md
+
+# Temporary files
+/tmp/
+*.tmp
+*.bak
+
+# IDE files
+.vscode/launch.json
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Runtime files
+*.pid
+*.lock

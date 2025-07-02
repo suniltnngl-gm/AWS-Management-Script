@@ -1,0 +1,17 @@
+{
+  "ImageId": "ami-0abcdef1234567890",
+  "InstanceType": "t2.micro",
+  "KeyName": "my-key-pair",
+  "SecurityGroupIds": ["sg-12345678"],
+  "SubnetId": "subnet-12345678",
+  "TagSpecifications": [
+    {
+      "ResourceType": "instance",
+      "Tags": [
+        {"Key": "Name", "Value": "MyInstance"},
+        {"Key": "Environment", "Value": "Development"},
+        {"Key": "Project", "Value": "AWS-Management"}
+      ]
+    }
+  ]
+}
