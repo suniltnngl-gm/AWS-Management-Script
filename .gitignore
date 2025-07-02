@@ -16,6 +16,9 @@ chat/session_*.md
 *.tmp
 *.bak
 
+# Documents folder
+documents/
+
 # IDE files
 .vscode/launch.json
 .idea/
