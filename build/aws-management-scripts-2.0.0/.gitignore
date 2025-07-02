@@ -16,6 +16,13 @@ chat/session_*.md
 *.tmp
 *.bak
 
+# Documents folder (plain text)
+documents/
+.docs_passphrase
+
+# Encrypted documents (tracked)
+# encrypted_docs/ - tracked in git
+
 # IDE files
 .vscode/launch.json
 .idea/

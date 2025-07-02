@@ -2,41 +2,28 @@
 
 # @file aws-cli.sh
 # @brief Main entry point for AWS Management Scripts
-# @description Interactive menu for all AWS tools and integrations
+# @description Simple launcher for tools and automation
 
 set -euo pipefail
 
-show_menu() {
-    echo "AWS Management Scripts"
-    echo "====================="
-    echo "1. Resource Overview    (aws_manager.sh)"
-    echo "2. MFA Authentication   (aws_mfa.sh)"
-    echo "3. Billing Analysis     (billing.sh)"
-    echo "4. CloudFront Audit     (cloudfront_audit.sh)"
-    echo "5. Run Integrations     (integration_runner.sh)"
-    echo "6. Automation Client    (client/aws_client.sh)"
-    echo "7. Save Chat History    (save_chat.sh)"
-    echo "0. Exit"
-    echo
-    read -p "Select option [0-7]: " choice
-}
+echo "🚀 AWS Management Scripts v2.0.0"
+echo "================================"
+echo
+echo "Choose your interface:"
+echo "1. Tools Menu           (tools.sh)"
+echo "2. Automation Client    (client/aws_client.sh)"
+echo "3. Build System         (build.sh)"
+echo "4. Deploy System        (deploy.sh)"
+echo "0. Exit"
+echo
 
-run_option() {
-    case $1 in
-        1) ./aws_manager.sh ;;
-        2) read -p "MFA Token: " token; read -p "Profile [default]: " profile; ./aws_mfa.sh "$token" "${profile:-default}" ;;
-        3) ./billing.sh ;;
-        4) ./cloudfront_audit.sh ;;
-        5) ./integration_runner.sh ;;
-        6) ./client/aws_client.sh ;;
-        7) read -p "Summary: " summary; ./save_chat.sh "$summary" ;;
-        0) exit 0 ;;
-        *) echo "Invalid option" ;;
-    esac
-}
+read -p "Select option [0-4]: " choice
 
-while true; do
-    show_menu
-    run_option "$choice"
-    echo; read -p "Press Enter to continue..."
-done
+case $choice in
+    1) ./tools.sh ;;
+    2) ./client/aws_client.sh ;;
+    3) ./build.sh ;;
+    4) ./deploy.sh ;;
+    0) exit 0 ;;
+    *) echo "Invalid option" ;;
+esac
