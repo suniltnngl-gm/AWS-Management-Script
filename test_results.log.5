@@ -1,0 +1,69 @@
+Test run: Fri, Jul  4, 2025  3:11:02 AM
+
+[1;34m[INFO][0m Testing ./aws-cli.sh (timeout: 10s)
+./aws-cli.sh: line 14: /g/Code/Clone/AWS-Management-Script/../lib/aws_utils.sh: No such file or directory
+[1;31m[FAIL][0m ./aws-cli.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./aws.sh (timeout: 10s)
+bash: /g/Code/Clone/AWS-Management-Script/scripts/manage.sh: No such file or directory
+[1;31m[FAIL][0m ./aws.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./backend/run.sh (timeout: 10s)
+./backend/run.sh: line 11: python3: command not found
+[1;31m[FAIL][0m ./backend/run.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./backup_verification.sh (timeout: 10s)
+Usage: ./backup_verification.sh [--help|-h]
+  Comprehensive backup verification before migration.
+  --help, -h   Show this help message
+[1;32m[PASS][0m ./backup_verification.sh
+
+[1;34m[INFO][0m Testing ./bin/ai_tools.sh (timeout: 10s)
+Usage: ./bin/ai_tools.sh [batch|token] [args...]
+  batch   Run AI batch request
+  token   Show AI token usage
+[1;31m[FAIL][0m ./bin/ai_tools.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/analyze_test_log.sh (timeout: 10s)
+Test Summary:
+  PASS: 1
+  FAIL: 4
+Failed scripts:
+[1;31m[FAIL][0m ./aws-cli.sh (timeout or error)
+[1;31m[FAIL][0m ./aws.sh (timeout or error)
+[1;31m[FAIL][0m ./backend/run.sh (timeout or error)
+[1;31m[FAIL][0m ./bin/ai_tools.sh (timeout or error)
+[1;31m[FAIL][0m ./bin/analyze_test_log.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/archive_tools.sh (timeout: 10s)
+Usage: ./bin/archive_tools.sh [zip|export] [args...]
+  zip     Archive and encrypt private docs
+  export  Export chat session
+[1;31m[FAIL][0m ./bin/archive_tools.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/aws_client.sh (timeout: 10s)
+[1;32m[PASS][0m ./bin/aws_client.sh
+
+[1;34m[INFO][0m Testing ./bin/changed_files.sh (timeout: 10s)
+[1;32m[PASS][0m ./bin/changed_files.sh
+
+[1;34m[INFO][0m Testing ./bin/integration_runner.sh (timeout: 10s)
+[1;32m[PASS][0m ./bin/integration_runner.sh
+
+[1;34m[INFO][0m Testing ./bin/manage_aws.sh (timeout: 10s)
+[1;32m[PASS][0m ./bin/manage_aws.sh
+
+[1;34m[INFO][0m Testing ./bin/mfa_aws.sh (timeout: 10s)
+[1;32m[PASS][0m ./bin/mfa_aws.sh
+
+[1;34m[INFO][0m Testing ./bin/orchestrate.sh (timeout: 10s)
+[1;32m[PASS][0m ./bin/orchestrate.sh
+
+[1;34m[INFO][0m Testing ./bin/report.sh (timeout: 10s)
+Usage: ./bin/report.sh [usage|billing|cloudfront] [args...]
+  usage       Show AWS usage summary
+  billing     Show AWS billing report
+  cloudfront  Audit CloudFront distribution
+[1;31m[FAIL][0m ./bin/report.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/test_all.sh (timeout: 10s)

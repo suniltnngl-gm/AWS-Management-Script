@@ -13,7 +13,9 @@ set -euo pipefail
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../../tools/utils.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../../lib/log_utils.sh"
+source "$SCRIPT_DIR/../../lib/aws_utils.sh"
 source "$SCRIPT_DIR/../core/config_loader.sh"
 
 

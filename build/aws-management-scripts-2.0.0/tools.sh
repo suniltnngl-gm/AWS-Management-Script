@@ -15,7 +15,7 @@ show_tools_menu() {
     echo "4. CloudFront Audit     (tools/cloudfront_audit.sh)"
     echo "5. Run Integrations     (tools/integration_runner.sh)"
     echo "6. Usage Summary        (tools/aws_usage.sh)"
-    echo "7. Utilities            (tools/utils.sh)"
+    echo "7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)"
     echo "8. Save Chat History    (tools/save_chat.sh)"
     echo
     echo "🧠 Logic Hubs:"
@@ -36,7 +36,7 @@ run_tool() {
         4) ./tools/cloudfront_audit.sh ;;
         5) ./tools/integration_runner.sh ;;
         6) ./tools/aws_usage.sh ;;
-        7) ./tools/utils.sh ;;
+        7) echo 'See lib/log_utils.sh and lib/aws_utils.sh' ;;
         8) read -p "Summary: " summary; ./tools/save_chat.sh "$summary" ;;
         H|h) read -p "Budget [\$0]: " budget; ./hub-logic/spend_hub.sh recommend "${budget:-0}" ;;
         R|r) ./router-logic/router_hub.sh check ;;

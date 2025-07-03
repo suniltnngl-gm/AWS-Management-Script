@@ -1,0 +1,449 @@
+Test run: Fri, Jul  4, 2025  3:11:13 AM
+
+[1;34m[INFO][0m Testing ./aws-cli.sh (timeout: 10s)
+./aws-cli.sh: line 14: /g/Code/Clone/AWS-Management-Script/../lib/aws_utils.sh: No such file or directory
+[1;31m[FAIL][0m ./aws-cli.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./aws.sh (timeout: 10s)
+bash: /g/Code/Clone/AWS-Management-Script/scripts/manage.sh: No such file or directory
+[1;31m[FAIL][0m ./aws.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./backend/run.sh (timeout: 10s)
+./backend/run.sh: line 11: python3: command not found
+[1;31m[FAIL][0m ./backend/run.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./backup_verification.sh (timeout: 10s)
+Usage: ./backup_verification.sh [--help|-h]
+  Comprehensive backup verification before migration.
+  --help, -h   Show this help message
+[1;32m[PASS][0m ./backup_verification.sh
+
+[1;34m[INFO][0m Testing ./bin/ai_tools.sh (timeout: 10s)
+Usage: ./bin/ai_tools.sh [batch|token] [args...]
+  batch   Run AI batch request
+  token   Show AI token usage
+[1;31m[FAIL][0m ./bin/ai_tools.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/analyze_test_log.sh (timeout: 10s)
+Test Summary:
+  PASS: 1
+  FAIL: 4
+Failed scripts:
+[1;31m[FAIL][0m ./aws-cli.sh (timeout or error)
+[1;31m[FAIL][0m ./aws.sh (timeout or error)
+[1;31m[FAIL][0m ./backend/run.sh (timeout or error)
+[1;31m[FAIL][0m ./bin/ai_tools.sh (timeout or error)
+[1;31m[FAIL][0m ./bin/analyze_test_log.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/archive_tools.sh (timeout: 10s)
+Usage: ./bin/archive_tools.sh [zip|export] [args...]
+  zip     Archive and encrypt private docs
+  export  Export chat session
+[1;31m[FAIL][0m ./bin/archive_tools.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./bin/aws_client.sh (timeout: 10s)
+[1;31m[FAIL][0m ./bin/test_all.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/aws-cli.sh (timeout: 10s)
+🚀 AWS Management Scripts v2.0.0
+================================
+
+Choose your interface:
+1. Tools Menu           (tools.sh)
+2. Automation Client    (client/aws_client.sh)
+3. Build System         (build.sh)
+4. Deploy System        (deploy.sh)
+0. Exit
+
+Invalid option
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/aws-cli.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/build.sh (timeout: 10s)
+Usage: ./build/aws-management-scripts-2.0.0/build.sh [build|validate|install|all]
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/build.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/client/aws_client.sh (timeout: 10s)
+./build/aws-management-scripts-2.0.0/client/../core/helpers.sh: line 10: ./build/aws-management-scripts-2.0.0/client/config_loader.sh: No such file or directory
+[1;31m[FAIL][0m ./build/aws-management-scripts-2.0.0/client/aws_client.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/core/automation.sh (timeout: 10s)
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/core/automation.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/core/config_loader.sh (timeout: 10s)
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/core/config_loader.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/core/helpers.sh (timeout: 10s)
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/core/helpers.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/core/state_manager.sh (timeout: 10s)
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/core/state_manager.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/deploy.sh (timeout: 10s)
+Usage: ./build/aws-management-scripts-2.0.0/deploy.sh [local|docker|backend|frontend|fullstack|github|s3|all]
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/deploy.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/encrypt_docs.sh (timeout: 10s)
+Usage: ./build/aws-management-scripts-2.0.0/encrypt_docs.sh [encrypt|decrypt]
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/encrypt_docs.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/integrations/aws_config.sh (timeout: 10s)
+Usage: ./build/aws-management-scripts-2.0.0/integrations/aws_config.sh [summary|rules|check <rule_name>]
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/integrations/aws_config.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/integrations/cloudwatch_metrics.sh (timeout: 10s)
+0
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/integrations/cloudwatch_metrics.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/integrations/cost_anomaly.sh (timeout: 10s)
+Usage: ./build/aws-management-scripts-2.0.0/integrations/cost_anomaly.sh [monitor|list [days]]
+[1;32m[PASS][0m ./build/aws-management-scripts-2.0.0/integrations/cost_anomaly.sh
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/integrations/slack_notify.sh (timeout: 10s)
+Error: SLACK_WEBHOOK_URL not set
+[1;31m[FAIL][0m ./build/aws-management-scripts-2.0.0/integrations/slack_notify.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/integrations/terraform_sync.sh (timeout: 10s)
+Error: Terraform not installed
+[1;31m[FAIL][0m ./build/aws-management-scripts-2.0.0/integrations/terraform_sync.sh (timeout or error)
+
+[1;34m[INFO][0m Testing ./build/aws-management-scripts-2.0.0/tools.sh (timeout: 10s)
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+Invalid option
+
+🛠️  AWS Management Tools
+=======================
+1. Resource Overview    (tools/aws_manager.sh)
+2. MFA Authentication   (tools/aws_mfa.sh)
+3. Billing Analysis     (tools/billing.sh)
+4. CloudFront Audit     (tools/cloudfront_audit.sh)
+5. Run Integrations     (tools/integration_runner.sh)
+6. Usage Summary        (tools/aws_usage.sh)
+7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)
+8. Save Chat History    (tools/save_chat.sh)
+
+🧠 Logic Hubs:
+H. Hub Logic            (hub-logic/spend_hub.sh)
+R. Router Logic         (router-logic/router_hub.sh)
+S. Switch Logic         (switch-logic/switch_hub.sh)
+
+0. Exit
+
+[1;31m[FAIL][0m ./build/aws-management-scripts-2.0.0/tools.sh (timeout or error)
+\n[SUMMARY] 0 passed, 0 failed.

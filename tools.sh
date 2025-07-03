@@ -8,7 +8,9 @@ set -euo pipefail
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/tools/utils.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/log_utils.sh"
+source "$SCRIPT_DIR/lib/aws_utils.sh"
 
 usage() {
     echo "Usage: $0 [--help|-h]"
@@ -30,7 +32,7 @@ show_tools_menu() {
     echo "4. CloudFront Audit     (tools/cloudfront_audit.sh)"
     echo "5. Run Integrations     (tools/integration_runner.sh)"
     echo "6. Usage Summary        (tools/aws_usage.sh)"
-    echo "7. Utilities            (tools/utils.sh)"
+    echo "7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)"
     echo "8. Save Chat History    (tools/save_chat.sh)"
     echo "9. Archive & Verify Chat (archive_and_verify_chat)"
     echo
@@ -52,7 +54,7 @@ run_tool() {
         4) ./tools/cloudfront_audit.sh ;;
         5) ./tools/integration_runner.sh ;;
         6) ./tools/aws_usage.sh ;;
-        7) ./tools/utils.sh ;;
+        7) echo 'See lib/log_utils.sh and lib/aws_utils.sh' ;;
         8) read -p "Summary: " summary; ./tools/save_chat.sh "$summary" ;;
         9) latest_chat=$(ls -t ./chat/session_*.md 2>/dev/null | head -1); if [[ -n "$latest_chat" ]]; then archive_and_verify_chat "$latest_chat"; else log_error "No chat export found."; fi ;;
         H|h) read -p "Budget [\$0]: " budget; ./hub-logic/spend_hub.sh recommend "${budget:-0}" ;;
@@ -105,7 +107,7 @@ if [[ $# -eq 0 || $1 == "--menu" ]]; then
         echo "4. CloudFront Audit     (tools/cloudfront_audit.sh)"
         echo "5. Run Integrations     (tools/integration_runner.sh)"
         echo "6. Usage Summary        (tools/aws_usage.sh)"
-        echo "7. Utilities            (tools/utils.sh)"
+        echo "7. Utilities            (lib/log_utils.sh, lib/aws_utils.sh)"
         echo "8. Save Chat History    (tools/save_chat.sh)"
         echo
         echo "🧠 Logic Hubs:"
@@ -126,7 +128,7 @@ if [[ $# -eq 0 || $1 == "--menu" ]]; then
             4) ./tools/cloudfront_audit.sh ;;
             5) ./tools/integration_runner.sh ;;
             6) ./tools/aws_usage.sh ;;
-            7) ./tools/utils.sh ;;
+            7) echo 'See lib/log_utils.sh and lib/aws_utils.sh' ;;
             8) read -p "Summary: " summary; ./tools/save_chat.sh "$summary" ;;
             H|h) read -p "Budget [\$0]: " budget; ./hub-logic/spend_hub.sh recommend "${budget:-0}" ;;
             R|r) ./router-logic/router_hub.sh check ;;
@@ -159,7 +161,7 @@ case $1 in
                 4) ./tools/cloudfront_audit.sh ;;
                 5) ./tools/integration_runner.sh ;;
                 6) ./tools/aws_usage.sh ;;
-                7) ./tools/utils.sh ;;
+                7) echo 'See lib/log_utils.sh and lib/aws_utils.sh' ;;
                 8) ./tools/save_chat.sh ;;
                 9) latest_chat=$(ls -t ./chat/session_*.md 2>/dev/null | head -1); if [[ -n "$latest_chat" ]]; then archive_and_verify_chat "$latest_chat"; else log_error "No chat export found."; fi ;;
                 H|h) ./hub-logic/spend_hub.sh recommend ;;

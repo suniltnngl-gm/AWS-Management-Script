@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # @file deploy.sh
 # @brief Deploy AWS Management Scripts
@@ -8,7 +7,13 @@ set -euo pipefail
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/tools/utils.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/log_utils.sh"
+source "$SCRIPT_DIR/lib/aws_utils.sh"
+
+# Source CI logging utilities
+CI_LOG_FILE="deploy_results.log"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
 
 usage() {
     echo "Usage: $0 [local|docker|github|s3|backend|frontend|--help|-h]"
@@ -112,6 +117,8 @@ deploy_fullstack() {
     echo "✅ Full stack deployed at http://localhost:3000"
 }
 
+ci_log_stage "Deploy Step Started: $(date)"
+
 case "${1:-local}" in
     "local") deploy_local ;;
     "docker") deploy_docker ;;
@@ -123,3 +130,5 @@ case "${1:-local}" in
     "all") deploy_local && deploy_docker && deploy_backend && deploy_frontend && deploy_github ;;
     *) echo "Usage: $0 [local|docker|backend|frontend|fullstack|github|s3|all]" ;;
 esac
+
+ci_log_summary "Deploy Step Completed: $(date)"

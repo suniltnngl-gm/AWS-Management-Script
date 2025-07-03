@@ -10,7 +10,9 @@ set -euo pipefail
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../../../tools/utils.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
 
 
 usage() {
@@ -158,7 +160,7 @@ cost_guard() {
         echo "🚨 THRESHOLD EXCEEDED!"
         # Send alert if Slack webhook configured
         if [[ -n "${SLACK_WEBHOOK_URL:-}" ]]; then
-            ../integrations/slack_notify.sh "🚨 AWS spend alert: \$$current_spend exceeds \$$threshold threshold" "danger"
+            ../lib/integrations.sh slack "🚨 AWS spend alert: \$$current_spend exceeds \$$threshold threshold" "danger"
         fi
         # Trigger emergency shutdown if spend is 2x threshold
         if (( $(echo "$current_spend > $threshold * 2" | bc -l 2>/dev/null || echo "0") )); then

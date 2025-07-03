@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # @file build.sh
 # @brief Build and package AWS Management Scripts
@@ -8,7 +7,13 @@ set -euo pipefail
 
 # Source shared utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/tools/utils.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/log_utils.sh"
+source "$SCRIPT_DIR/lib/aws_utils.sh"
+
+# Source CI logging utilities
+CI_LOG_FILE="build_results.log"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
 
 usage() {
     echo "Usage: $0 [build|validate|install|all|--help|-h]"
@@ -29,6 +34,7 @@ BUILD_DIR="build"
 PACKAGE_NAME="aws-management-scripts-$VERSION"
 
 build_package() {
+    ci_log_stage "Build Step Started: $(date)"
     echo "Building AWS Management Scripts v$VERSION"
     
     # Clean and create build directory
@@ -56,6 +62,7 @@ build_package() {
     
     echo "✅ Package created: $BUILD_DIR/$PACKAGE_NAME.tar.gz"
     echo "📦 Size: $(du -h "$BUILD_DIR/$PACKAGE_NAME.tar.gz" | cut -f1)"
+    ci_log_summary "Build Step Completed: $(date)"
 }
 
 validate_build() {
