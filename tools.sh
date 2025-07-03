@@ -32,6 +32,7 @@ show_tools_menu() {
     echo "6. Usage Summary        (tools/aws_usage.sh)"
     echo "7. Utilities            (tools/utils.sh)"
     echo "8. Save Chat History    (tools/save_chat.sh)"
+    echo "9. Archive & Verify Chat (archive_and_verify_chat)"
     echo
     echo "🧠 Logic Hubs:"
     echo "H. Hub Logic            (hub-logic/spend_hub.sh)"
@@ -53,6 +54,7 @@ run_tool() {
         6) ./tools/aws_usage.sh ;;
         7) ./tools/utils.sh ;;
         8) read -p "Summary: " summary; ./tools/save_chat.sh "$summary" ;;
+        9) latest_chat=$(ls -t ./chat/session_*.md 2>/dev/null | head -1); if [[ -n "$latest_chat" ]]; then archive_and_verify_chat "$latest_chat"; else log_error "No chat export found."; fi ;;
         H|h) read -p "Budget [\$0]: " budget; ./hub-logic/spend_hub.sh recommend "${budget:-0}" ;;
         R|r) ./router-logic/router_hub.sh check ;;
         S|s) ./switch-logic/switch_hub.sh status ;;
@@ -61,8 +63,10 @@ run_tool() {
     esac
 }
 
+
 while true; do
     show_tools_menu
+done
 
 usage() {
     echo "Usage: $0 [OPTION] [ARGS...]"
@@ -72,6 +76,7 @@ usage() {
     echo "  --mfa <token> <profile>  Run MFA Authentication non-interactively"
     echo "  --save-chat <summary>     Save chat history non-interactively"
     echo "  --budget <amount>         Run Hub Logic recommend non-interactively"
+    echo "  --archive-chat        Archive and verify the latest chat export"
     echo "  --menu                Show interactive menu (default if no args)"
     echo "  --test                Dry-run: print actions but do not execute"
     echo
@@ -140,6 +145,10 @@ case $1 in
     --help|-h)
         usage
         ;;
+    --archive-chat)
+        latest_chat=$(ls -t ./chat/session_*.md 2>/dev/null | head -1)
+        if [[ -n "$latest_chat" ]]; then archive_and_verify_chat "$latest_chat"; else log_error "No chat export found."; fi
+        ;;
     --select)
         if [[ -z "${2:-}" ]]; then log_error "Missing option for --select"; exit 1; fi
         run_tool() {
@@ -152,6 +161,7 @@ case $1 in
                 6) ./tools/aws_usage.sh ;;
                 7) ./tools/utils.sh ;;
                 8) ./tools/save_chat.sh ;;
+                9) latest_chat=$(ls -t ./chat/session_*.md 2>/dev/null | head -1); if [[ -n "$latest_chat" ]]; then archive_and_verify_chat "$latest_chat"; else log_error "No chat export found."; fi ;;
                 H|h) ./hub-logic/spend_hub.sh recommend ;;
                 R|r) ./router-logic/router_hub.sh check ;;
                 S|s) ./switch-logic/switch_hub.sh status ;;
@@ -159,25 +169,9 @@ case $1 in
                 *) log_error "Invalid option" ;;
             esac
         }
-run_tool() {
-    if [ "$TEST_MODE" = true ]; then
-        log_info "[TEST MODE] Would execute: $1"
-        return
-    fi
-    case $1 in
-        1) ./tools/aws_manager.sh ;;
-        2) read -p "MFA Token: " token; read -p "Profile [default]: " profile; ./tools/aws_mfa.sh "$token" "${profile:-default}" ;;
-        3) ./tools/billing.sh ;;
-        4) ./tools/cloudfront_audit.sh ;;
-        5) ./tools/integration_runner.sh ;;
-        6) ./tools/aws_usage.sh ;;
-        7) ./tools/utils.sh ;;
-        8) read -p "Summary: " summary; ./tools/save_chat.sh "$summary" ;;
-        H|h) read -p "Budget [\$0]: " budget; ./hub-logic/spend_hub.sh recommend "${budget:-0}" ;;
-        R|r) ./router-logic/router_hub.sh check ;;
-        S|s) ./switch-logic/switch_hub.sh status ;;
-        0) exit 0 ;;
-        *) log_error "Invalid option" ;;
-    esac
-}
+        run_tool "$2"
+        ;;
+    *)
+        usage
+        ;;
 esac

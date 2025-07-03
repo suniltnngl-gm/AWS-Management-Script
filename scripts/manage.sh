@@ -43,6 +43,7 @@ SINCE="HEAD"
 PATTERN="*"
 BATCH_CMD=""
 
+
 while [[ $# -gt 0 ]]; do
   case $1 in
     --env)
@@ -61,6 +62,8 @@ while [[ $# -gt 0 ]]; do
       shift;;
   esac
 done
+
+
 
 run_step() {
   CMD=$1
@@ -98,12 +101,9 @@ case $ACTION in
     CHANGED_FILES=$(./scripts/changed_files.sh --since "$SINCE" --pattern "$PATTERN")
     if [[ -n "$BATCH_CMD" && -n "$CHANGED_FILES" ]]; then
       ./scripts/ai_batch_request.sh "$BATCH_CMD" $CHANGED_FILES
-      # After batch edit, export and encrypt chat for secure cloudshell access
       SUMMARY="Batch edit: $BATCH_CMD on $CHANGED_FILES"
       CHAT_EXPORT=$(./tools/save_chat.sh "$SUMMARY" | grep 'Chat saved:' | awk '{print $3}')
-      if [[ -n "$CHAT_EXPORT" && -f "$CHAT_EXPORT" ]]; then
-        log_info "Chat export complete: $CHAT_EXPORT (move to private_docs/ and archive with tools/private_docs_zip.sh if needed)"
-      fi
+      archive_and_verify_chat "$CHAT_EXPORT"
     else
       log_info "No changed files or batch command specified."
     fi
@@ -111,6 +111,8 @@ case $ACTION in
   ai-report)
     ./scripts/ai_token_usage.sh
     ;;
+
   *)
     usage
     ;;
+esac

@@ -60,6 +60,7 @@ log_error() {
     fi
 }
 
+
 # @function log_info
 # @brief Logs informational messages to stdout and central log file
 # @param $* Info message string
@@ -71,4 +72,22 @@ log_info() {
     if [ "$LOG_TO_FILE" = true ]; then
         echo "$(date '+%Y-%m-%d %H:%M:%S') $msg" >> "$LOG_FILE"
     fi
+}
+
+# @function archive_and_verify_chat
+# @brief Move chat export to private_docs, archive, and verify backup
+# @param $1 Path to chat file
+# @usage archive_and_verify_chat ./chat/session_20250703_221113.md
+archive_and_verify_chat() {
+    local chat_file="$1"
+    if [[ -z "$chat_file" || ! -f "$chat_file" ]]; then
+        log_error "No chat file to archive."
+        return 1
+    fi
+    mv "$chat_file" private_docs/ 2>/dev/null || cp "$chat_file" private_docs/
+    log_info "Chat export moved to private_docs/"
+    bash ./tools/private_docs_zip.sh zip
+    log_info "private_docs/ archived and encrypted as private_docs.zip"
+    bash ./backup_verification.sh
+    log_info "Backup verification complete."
 }
