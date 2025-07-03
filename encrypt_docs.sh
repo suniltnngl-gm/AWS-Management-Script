@@ -1,10 +1,26 @@
-#!/bin/bash
 
+#!/bin/bash
 # @file encrypt_docs.sh
 # @brief Encrypt documents for secure GitHub storage
 # @description Encrypt sensitive documents before committing to public repo
 
 set -euo pipefail
+
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/tools/utils.sh"
+
+usage() {
+    echo "Usage: $0 [encrypt|decrypt|--help|-h]"
+    echo "  encrypt      Encrypt all documents"
+    echo "  decrypt      Decrypt all documents"
+    echo "  --help, -h   Show this help message"
+    exit 0
+}
+
+if [[ $# -gt 0 && ( $1 == "--help" || $1 == "-h" ) ]]; then
+    usage
+fi
 
 DOCS_DIR="documents"
 ENCRYPTED_DIR="encrypted_docs"

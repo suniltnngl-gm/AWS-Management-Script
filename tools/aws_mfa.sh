@@ -1,70 +1,74 @@
 #!/bin/bash
-
 # @file aws_mfa.sh
 # @brief AWS MFA Session Token Generator
 # @description Generates temporary AWS credentials using MFA authentication
-# @version 2.0
+# @version 2.2
 # @requires aws-cli, mfa.cfg configuration file
-# @usage ./aws_mfa.sh <token_code> [profile]
+# @usage ./aws_mfa.sh <token_code> [profile] [--dry-run|--test]
+# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
 
 set -euo pipefail
 
-# @function check_aws_cli
-# @brief Validates AWS CLI installation
-# @return 1 if AWS CLI not found
-check_aws_cli() {
-    if ! command -v aws &> /dev/null; then
-        echo "Error: AWS CLI not installed" >&2
-        exit 1
-    fi
-}
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
-# @function usage
-# @brief Displays usage information and exits
+# Usage/help function
 usage() {
-    echo "Usage: $0 <MFA_TOKEN_CODE> [AWS_CLI_PROFILE]"
+    echo "Usage: $0 <MFA_TOKEN_CODE> [AWS_CLI_PROFILE] [--dry-run|--test] [--help|-h]"
     echo "  MFA_TOKEN_CODE: Code from MFA device"
     echo "  AWS_CLI_PROFILE: AWS profile (default: default)"
-    exit 1
+    echo "  --dry-run, --test  Show what would be done, do not call AWS"
+    echo "  --help, -h     Show this help message"
+    exit 0
 }
 
-# @validation Input parameter validation
-[[ $# -lt 1 || $# -gt 2 ]] && usage
+DRY_RUN=false
+ARGS=()
+for arg in "$@"; do
+    case $arg in
+        --dry-run|--test)
+            DRY_RUN=true;;
+        --help|-h)
+            usage;;
+        *)
+            ARGS+=("$arg");;
+    esac
+done
+set -- "${ARGS[@]}"
 
-check_aws_cli
+if [[ $# -eq 0 ]]; then
+    usage
+fi
 
-# @var AWS_CLI_PROFILE AWS profile to use (default: default)
-# @var MFA_TOKEN_CODE MFA token from user input
-# @var SCRIPT_DIR Directory containing this script
-# @var MFA_CONFIG Path to MFA configuration file
 AWS_CLI_PROFILE=${2:-default}
 MFA_TOKEN_CODE=$1
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MFA_CONFIG="$SCRIPT_DIR/mfa.cfg"
 
-# @validation Configuration file validation
+check_aws_cli || exit 1
+
 if [[ ! -r "$MFA_CONFIG" ]]; then
-    echo "Error: Config file $MFA_CONFIG not found" >&2
-    echo "Create mfa.cfg with format: profile_name=arn:aws:iam::account:mfa/username" >&2
+    log_error "Config file $MFA_CONFIG not found"
+    log_error "Create mfa.cfg with format: profile_name=arn:aws:iam::account:mfa/username"
     exit 1
 fi
 
-# @var ARN_OF_MFA MFA device ARN from configuration
 ARN_OF_MFA=$(grep "^$AWS_CLI_PROFILE=" "$MFA_CONFIG" | cut -d'=' -f2- | tr -d '"')
-
-# @validation MFA ARN validation
 if [[ -z "$ARN_OF_MFA" ]]; then
-    echo "Error: No MFA ARN found for profile $AWS_CLI_PROFILE" >&2
+    log_error "No MFA ARN found for profile $AWS_CLI_PROFILE"
     exit 1
 fi
 
-echo "Generating temporary credentials..."
-echo "Profile: $AWS_CLI_PROFILE"
-echo "MFA ARN: $ARN_OF_MFA"
+log_info "Generating temporary credentials..."
+log_info "Profile: $AWS_CLI_PROFILE"
+log_info "MFA ARN: $ARN_OF_MFA"
 
-# @operation Generate temporary credentials using STS
-# @duration 43200 seconds (12 hours)
-# @output Exports AWS credentials to file
+if $DRY_RUN; then
+    log_info "[DRY RUN] Would call: aws --profile $AWS_CLI_PROFILE sts get-session-token ..."
+    log_info "[DRY RUN] Would save credentials to $HOME/.aws_temp_creds"
+    exit 0
+fi
+
 aws --profile "$AWS_CLI_PROFILE" sts get-session-token \
     --duration-seconds 43200 \
     --serial-number "$ARN_OF_MFA" \
@@ -73,5 +77,5 @@ aws --profile "$AWS_CLI_PROFILE" sts get-session-token \
     awk '{printf("export AWS_ACCESS_KEY_ID=%s\nexport AWS_SECRET_ACCESS_KEY=%s\nexport AWS_SESSION_TOKEN=%s\n",$2,$4,$5)}' | \
     tee "$HOME/.aws_temp_creds"
 
-echo "Credentials saved to $HOME/.aws_temp_creds"
-echo "Run: source $HOME/.aws_temp_creds"
+log_info "Credentials saved to $HOME/.aws_temp_creds"
+log_info "Run: source $HOME/.aws_temp_creds"

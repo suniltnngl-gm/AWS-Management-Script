@@ -1,10 +1,40 @@
-#!/bin/bash
 
+
+#!/bin/bash
 # @file core/config_loader.sh
 # @brief Configuration loader with fallbacks
 # @description Resilient config loading with defaults
+# @ai-optimized: true
+# @ai-dry-run-support: true
+# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+
 
 set -euo pipefail
+
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../tools/utils.sh"
+
+
+usage() {
+    echo "Usage: $0 [--help|-h] [--dry-run|--test]"
+    echo "  Configuration loader with fallbacks."
+    echo "  --help, -h     Show this help message"
+    echo "  --dry-run      Simulate actions, do not make changes"
+    echo "  --test         Alias for --dry-run (for AI/automation)"
+    exit 0
+}
+
+# Dry-run/test mode support
+DRY_RUN=false
+for arg in "$@"; do
+    if [[ "$arg" == "--dry-run" || "$arg" == "--test" ]]; then
+        DRY_RUN=true
+    fi
+    if [[ "$arg" == "--help" || "$arg" == "-h" ]]; then
+        usage
+    fi
+done
 
 CONFIG_FILE="${CONFIG_FILE:-$(dirname "$0")/../config/settings.conf}"
 

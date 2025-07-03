@@ -1,10 +1,30 @@
-#!/bin/bash
 
+#!/bin/bash
 # @file deploy.sh
 # @brief Deploy AWS Management Scripts
 # @description Multi-target deployment script
 
 set -euo pipefail
+
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/tools/utils.sh"
+
+usage() {
+    echo "Usage: $0 [local|docker|github|s3|backend|frontend|--help|-h]"
+    echo "  local        Deploy locally"
+    echo "  docker       Deploy with Docker"
+    echo "  github       Prepare GitHub release"
+    echo "  s3           Deploy to S3"
+    echo "  backend      Deploy backend API"
+    echo "  frontend     Deploy frontend dashboard"
+    echo "  --help, -h   Show this help message"
+    exit 0
+}
+
+if [[ $# -gt 0 && ( $1 == "--help" || $1 == "-h" ) ]]; then
+    usage
+fi
 
 VERSION="2.0.0"
 PACKAGE="aws-management-scripts-$VERSION.tar.gz"

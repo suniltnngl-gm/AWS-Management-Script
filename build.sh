@@ -1,10 +1,28 @@
-#!/bin/bash
 
+#!/bin/bash
 # @file build.sh
 # @brief Build and package AWS Management Scripts
 # @description Creates distributable package with validation
 
 set -euo pipefail
+
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/tools/utils.sh"
+
+usage() {
+    echo "Usage: $0 [build|validate|install|all|--help|-h]"
+    echo "  build        Build the package"
+    echo "  validate     Validate the build"
+    echo "  install      Install locally"
+    echo "  all          Build and validate"
+    echo "  --help, -h   Show this help message"
+    exit 0
+}
+
+if [[ $# -gt 0 && ( $1 == "--help" || $1 == "-h" ) ]]; then
+    usage
+fi
 
 VERSION="2.0.0"
 BUILD_DIR="build"

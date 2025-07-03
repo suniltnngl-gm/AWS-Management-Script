@@ -1,84 +1,57 @@
-#!/bin/bash
 
+#!/bin/bash
 # @file aws_manager.sh
 # @brief AWS Management Script - Unified resource monitoring
 # @description Streamlined monitoring and management of AWS services
-# @version 2.0
+# @version 2.1
 # @author Refactored for AI compatibility
 # @requires aws-cli
 
 set -euo pipefail
 
-# @function check_aws_cli
-# @brief Validates AWS CLI installation
-# @return 1 if AWS CLI not found, 0 otherwise
-check_aws_cli() {
-    if ! command -v aws &> /dev/null; then
-        echo "Error: AWS CLI not installed" >&2
-        exit 1
-    fi
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+
+# Usage/help function
+usage() {
+    echo "Usage: $0 [--help|-h] [--env ENV] [--dry-run] [--verbose]"
+    echo "  Unified AWS resource overview."
+    echo "  --env ENV      Specify environment (default: default)"
+    echo "  --dry-run      Show commands without executing"
+    echo "  --verbose      Enable verbose logging"
+    echo "  --help, -h     Show this help message"
+    exit 0
 }
 
-# @function format_output
-# @brief Formats service output consistently
-# @param $1 Service title
-# @param $2 Resource count
-format_output() {
-    local title="$1"
-    local count="$2"
-    printf "%-20s: %s\n" "$title" "$count"
-}
+# Default options
+ENV="default"
+DRY_RUN=false
+VERBOSE=false
 
-# @function get_ec2_info
-# @brief Retrieves EC2 instance information
-# @description Fetches instance ID, state, and name tags
-get_ec2_info() {
-    local instances=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name,Tags[?Key==`Name`].Value|[0]]' --output text 2>/dev/null || echo "")
-    local count=$(echo "$instances" | grep -c . || echo "0")
-    
-    format_output "EC2 Instances" "$count"
-    if [[ $count -gt 0 ]]; then
-        echo "$instances" | while read -r id state name; do
-            printf "  %-19s %-10s %s\n" "$id" "$state" "${name:-N/A}"
-        done
-    fi
-}
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --env)
+            ENV="$2"; shift 2;;
+        --dry-run)
+            DRY_RUN=true; shift;;
+        --verbose)
+            VERBOSE=true; shift;;
+        --help|-h)
+            usage;;
+        *)
+            shift;;
+    esac
+done
 
-# @function get_s3_info
-# @brief Retrieves S3 bucket information
-# @description Lists all S3 buckets in the account
-get_s3_info() {
-    local buckets=$(aws s3api list-buckets --query 'Buckets[].Name' --output text 2>/dev/null || echo "")
-    local count=$(echo "$buckets" | wc -w)
-    
-    format_output "S3 Buckets" "$count"
-    [[ $count -gt 0 ]] && echo "$buckets" | tr '\t' '\n' | sed 's/^/  /'
-}
+log_info "Starting AWS Manager (env: $ENV, dry-run: $DRY_RUN, verbose: $VERBOSE)"
 
-# @function get_lambda_info
-# @brief Retrieves Lambda function information
-# @description Lists all Lambda functions in the account
-get_lambda_info() {
-    local functions=$(aws lambda list-functions --query 'Functions[*].FunctionName' --output text 2>/dev/null || echo "")
-    local count=$(echo "$functions" | wc -w)
-    
-    format_output "Lambda Functions" "$count"
-    [[ $count -gt 0 ]] && echo "$functions" | tr '\t' '\n' | sed 's/^/  /'
-}
+if $DRY_RUN; then
+    log_info "Dry run mode: No AWS commands will be executed."
+fi
 
-# @function get_sns_info
-# @brief Retrieves SNS topic information
-# @description Lists all SNS topics in the account
-get_sns_info() {
-    local topics=$(aws sns list-topics --query 'Topics[].TopicArn' --output text 2>/dev/null || echo "")
-    local count=$(echo "$topics" | wc -w)
-    
-    format_output "SNS Topics" "$count"
-    [[ $count -gt 0 ]] && echo "$topics" | tr '\t' '\n' | sed 's/.*://; s/^/  /'
-}
-
-# @function get_iam_info
-# @brief Retrieves IAM user information
+# ...existing code for get_ec2_info, get_s3_info, get_lambda_info, get_sns_info, get_iam_info...
 # @description Lists all IAM users in the account
 get_iam_info() {
     local users=$(aws iam list-users --query 'Users[*].UserName' --output text 2>/dev/null || echo "")

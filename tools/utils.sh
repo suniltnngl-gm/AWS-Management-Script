@@ -41,20 +41,34 @@ format_output() {
     printf "%-20s: %s\n" "$title" "$count"
 }
 
+# Central log file support
+# Set AWS_MGMT_LOG_FILE to override, or defaults to ~/.aws_management_logs/main.log
+LOG_FILE="${AWS_MGMT_LOG_FILE:-$HOME/.aws_management_logs/main.log}"
+LOG_TO_FILE=true
+mkdir -p "$(dirname "$LOG_FILE")" 2>/dev/null || true
+
 # @function log_error
-# @brief Logs error messages to stderr
+# @brief Logs error messages to stderr and central log file
 # @param $* Error message string
 # @output stderr
 # @usage log_error "Something went wrong"
 log_error() {
-    echo "Error: $*" >&2
+    local msg="Error: $*"
+    echo "$msg" >&2
+    if [ "$LOG_TO_FILE" = true ]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') $msg" >> "$LOG_FILE"
+    fi
 }
 
 # @function log_info
-# @brief Logs informational messages to stdout
+# @brief Logs informational messages to stdout and central log file
 # @param $* Info message string
 # @output stdout
 # @usage log_info "Process completed"
 log_info() {
-    echo "Info: $*"
+    local msg="Info: $*"
+    echo "$msg"
+    if [ "$LOG_TO_FILE" = true ]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') $msg" >> "$LOG_FILE"
+    fi
 }

@@ -1,51 +1,73 @@
-#!/bin/bash
 
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
 # @file billing.sh
 # @brief AWS Billing Information Script
 # @description Retrieves cost and usage data from AWS Cost Explorer
-# @version 2.0
+# @version 2.2
 # @requires aws-cli with Cost Explorer permissions
+# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
 
 set -euo pipefail
 
-# @function check_aws_cli
-# @brief Validates AWS CLI installation
-# @return 1 if AWS CLI not found
-check_aws_cli() {
-    if ! command -v aws &> /dev/null; then
-        echo "Error: AWS CLI not installed" >&2
-        exit 1
-    fi
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+
+# Usage/help function
+usage() {
+    echo "Usage: $0 [--dry-run|--test] [--help|-h]"
+    echo "  Retrieves AWS billing information for the last 30 days."
+    echo "  --dry-run, --test  Show what would be done, do not call AWS"
+    echo "  --help, -h     Show this help message"
+    exit 0
 }
 
-# @function get_billing_info
-# @brief Retrieves AWS billing information for the last 30 days
-# @description Fetches total cost and service-wise breakdown using Cost Explorer API
+DRY_RUN=false
+for arg in "$@"; do
+    case $arg in
+        --dry-run|--test)
+            DRY_RUN=true;;
+        --help|-h)
+            usage;;
+    esac
+done
+
+check_aws_cli || exit 1
+
 get_billing_info() {
-    # @var end_date Current date in YYYY-MM-DD format
-    # @var start_date Date 30 days ago in YYYY-MM-DD format
     local end_date=$(date +%Y-%m-%d)
     local start_date=$(date -d "30 days ago" +%Y-%m-%d)
-    
-    echo "AWS Billing Information (Last 30 days)"
-    echo "======================================"
-    
-    # @operation Get total cost using Cost Explorer
-    # @api aws ce get-cost-and-usage
-    # @metric BlendedCost
+
+    log_info "AWS Billing Information (Last 30 days)"
+    log_info "======================================"
+
+    if $DRY_RUN; then
+        log_info "[DRY RUN] Would call: aws ce get-cost-and-usage ... for total cost and service breakdown."
+        return 0
+    fi
+
     local total_cost=$(aws ce get-cost-and-usage \
         --time-period Start="$start_date",End="$end_date" \
         --granularity MONTHLY \
         --metrics "BlendedCost" \
         --query 'ResultsByTime[0].Total.BlendedCost.Amount' \
         --output text 2>/dev/null || echo "0")
-    
+
     printf "Total Cost: $%.2f USD\n\n" "$total_cost"
-    
-    # @operation Get costs by service
-    # @groupby SERVICE dimension
-    # @sort Descending by cost amount
-    echo "Costs by Service:"
+
+    log_info "Costs by Service:"
     aws ce get-cost-and-usage \
         --time-period Start="$start_date",End="$end_date" \
         --granularity MONTHLY \
@@ -54,9 +76,7 @@ get_billing_info() {
         --query 'ResultsByTime[0].Groups[].[Keys[0],Metrics.BlendedCost.Amount]' \
         --output text 2>/dev/null | \
         sort -k2 -nr | \
-        awk '{printf "  %-30s: $%.2f\n", $1, $2}' || echo "  Unable to retrieve service costs"
+        awk '{printf "  %-30s: $%.2f\n", $1, $2}' || log_error "Unable to retrieve service costs"
 }
 
-# @main Main execution
-check_aws_cli
 get_billing_info
