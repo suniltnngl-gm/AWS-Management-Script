@@ -4,15 +4,6 @@
   "features": {
     "ghcr.io/devcontainers/features/aws-cli:1": {}
   },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "timonwong.shellcheck"
-      ]
-    }
-  },
   "postCreateCommand": "chmod +x *.sh",
-  "forwardPorts": [],
-  "portsAttributes": {},
   "remoteUser": "vscode"
 }

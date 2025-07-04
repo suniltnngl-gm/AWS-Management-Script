@@ -6,6 +6,10 @@ private_docs/
 .env
 .aws/
 
+# Devcontainer (can contain sensitive configs)
+.devcontainer/
+.vscode/
+
 # Build artifacts
 build/
 dist/
