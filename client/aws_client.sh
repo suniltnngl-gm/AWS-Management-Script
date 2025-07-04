@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-source "$(dirname "$0")/../core/helpers.sh"
+source "$(dirname "$0")/../core/helpers.sh" 2>/dev/null || echo "Warning: helpers.sh not found"
 source "$(dirname "$0")/../core/automation.sh"
 
 show_automation_menu() {
