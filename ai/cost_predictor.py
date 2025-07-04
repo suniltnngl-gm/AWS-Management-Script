@@ -20,6 +20,7 @@ class CostPredictor:
     def __init__(self):
         self.model = LinearRegression()
         self.is_trained = False
+        self.regions = ['us-east-1', 'us-west-2', 'eu-west-1', 'ap-southeast-1']
     
     def predict_costs(self, historical_data, days_ahead=30):
         """Predict future costs based on historical data"""
@@ -105,11 +106,44 @@ class CostPredictor:
         
         r_squared = 1 - (ss_res / ss_tot)
         return max(0, min(1, r_squared))
+    
+    def analyze_cleanup_opportunities(self):
+        """Multi-region cleanup analysis"""
+        import boto3
+        from concurrent.futures import ThreadPoolExecutor
+        
+        def check_region(region):
+            try:
+                ec2 = boto3.client('ec2', region_name=region)
+                
+                # Unused volumes
+                volumes = ec2.describe_volumes(Filters=[{'Name': 'status', 'Values': ['available']}])
+                unused_cost = sum(v['Size'] * 0.10 for v in volumes['Volumes'])
+                
+                # Old snapshots
+                snapshots = ec2.describe_snapshots(OwnerIds=['self'])
+                old_cost = sum(s.get('VolumeSize', 0) * 0.05 for s in snapshots['Snapshots'])
+                
+                return {'region': region, 'savings': unused_cost + old_cost}
+            except:
+                return {'region': region, 'savings': 0}
+        
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            results = list(executor.map(check_region, self.regions))
+        
+        total_savings = sum(r['savings'] for r in results)
+        return {'total_monthly_savings': total_savings, 'regions': results}
 
 def main():
     if len(sys.argv) < 2:
-        print(json.dumps({"error": "Usage: python3 cost_predictor.py <historical_costs_json>"}))
+        print(json.dumps({"error": "Usage: python3 cost_predictor.py <historical_costs_json|cleanup>"}))
         sys.exit(1)
+    
+    if sys.argv[1] == "cleanup":
+        predictor = CostPredictor()
+        result = predictor.analyze_cleanup_opportunities()
+        print(json.dumps(result, indent=2))
+        return
     
     try:
         # Parse input
