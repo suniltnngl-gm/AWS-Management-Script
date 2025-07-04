@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Balance Manager</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; }
+        .header { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 1rem; text-align: center; }
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .metric { display: flex; justify-content: space-between; margin: 0.5rem 0; }
+        .btn { background: #3b82f6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background: #2563eb; }
+        .status-good { color: #10b981; }
+        .status-warning { color: #f59e0b; }
+        .status-error { color: #ef4444; }
+        .loading { opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>☁️ Cloud Balance Manager</h1>
+        <p>Local cloud cost optimization and workload balancing</p>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h3>💰 Cost Comparison</h3>
+                <div class="metric">
+                    <span>AWS</span>
+                    <span id="aws-cost">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Azure</span>
+                    <span id="azure-cost">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>GCP</span>
+                    <span id="gcp-cost">Loading...</span>
+                </div>
+                <div class="metric">
+                    <strong>Cheapest</strong>
+                    <strong id="cheapest">Loading...</strong>
+                </div>
+                <button class="btn" onclick="refreshCosts()">Refresh</button>
+            </div>
+
+            <div class="card">
+                <h3>⚖️ Workload Balance</h3>
+                <div class="metric">
+                    <span>Potential Savings</span>
+                    <span id="savings" class="status-good">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Recommendations</span>
+                    <span id="rec-count">Loading...</span>
+                </div>
+                <div id="recommendations"></div>
+                <button class="btn" onclick="triggerBalance()">Balance Now</button>
+            </div>
+
+            <div class="card">
+                <h3>🔒 Security Status</h3>
+                <div class="metric">
+                    <span>Risk Score</span>
+                    <span id="risk-score">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Status</span>
+                    <span id="security-status">Loading...</span>
+                </div>
+                <div id="security-issues"></div>
+                <button class="btn" onclick="refreshSecurity()">Scan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function refreshCosts() {
+            document.querySelector('.card').classList.add('loading');
+            try {
+                const response = await fetch('/api/costs');
+                const data = await response.json();
+                
+                document.getElementById('aws-cost').textContent = `$${data.current_costs.aws.toFixed(2)}`;
+                document.getElementById('azure-cost').textContent = `$${data.current_costs.azure.toFixed(2)}`;
+                document.getElementById('gcp-cost').textContent = `$${data.current_costs.gcp.toFixed(2)}`;
+                document.getElementById('cheapest').textContent = data.cheapest_provider.toUpperCase();
+                document.getElementById('savings').textContent = `$${data.total_potential_savings.toFixed(2)}/month`;
+                document.getElementById('rec-count').textContent = data.recommendations.length;
+                
+                const recDiv = document.getElementById('recommendations');
+                recDiv.innerHTML = data.recommendations.map(r => 
+                    `<div style="margin: 0.5rem 0; padding: 0.5rem; background: #f3f4f6; border-radius: 4px;">
+                        <strong>${r.action.replace(/_/g, ' ')}</strong><br>
+                        Savings: ${r.savings} (${r.priority} priority)
+                    </div>`
+                ).join('');
+            } catch (error) {
+                console.error('Error fetching costs:', error);
+            }
+            document.querySelector('.card').classList.remove('loading');
+        }
+
+        async function refreshSecurity() {
+            try {
+                const response = await fetch('/api/security');
+                const data = await response.json();
+                
+                document.getElementById('risk-score').textContent = data.risk_score;
+                document.getElementById('security-status').textContent = data.status;
+                document.getElementById('security-status').className = 
+                    data.status === 'GOOD' ? 'status-good' : 'status-error';
+                
+                const issuesDiv = document.getElementById('security-issues');
+                issuesDiv.innerHTML = data.issues.map(issue => 
+                    `<div style="margin: 0.5rem 0; color: #ef4444;">
+                        ${issue.severity}: ${issue.issue}
+                    </div>`
+                ).join('');
+            } catch (error) {
+                console.error('Error fetching security:', error);
+            }
+        }
+
+        async function triggerBalance() {
+            try {
+                const response = await fetch('/api/balance', { method: 'POST' });
+                const data = await response.json();
+                alert('Workload balancing completed!');
+                refreshCosts();
+            } catch (error) {
+                console.error('Error triggering balance:', error);
+            }
+        }
+
+        // Initialize
+        refreshCosts();
+        refreshSecurity();
+        setInterval(refreshCosts, 60000); // Refresh every minute
+    </script>
+</body>
+</html>

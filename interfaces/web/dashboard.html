@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Management Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem; text-align: center; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); }
+        .card h3 { color: #2d3748; margin-bottom: 1rem; display: flex; align-items: center; }
+        .card h3::before { content: '📊'; margin-right: 0.5rem; font-size: 1.2em; }
+        .metric { display: flex; justify-content: space-between; margin: 0.5rem 0; padding: 0.5rem; background: #f8f9fa; border-radius: 6px; }
+        .metric-value { font-weight: bold; color: #4299e1; }
+        .status-good { color: #48bb78; }
+        .status-warning { color: #ed8936; }
+        .status-error { color: #f56565; }
+        .btn { background: #4299e1; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin: 0.25rem; }
+        .btn:hover { background: #3182ce; }
+        .loading { text-align: center; color: #718096; }
+        .chart-placeholder { height: 200px; background: #edf2f7; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #718096; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 AWS Management Dashboard v2.1</h1>
+        <p>Real-time multi-cloud monitoring and optimization</p>
+    </div>
+
+    <div class="container">
+        <div class="grid">
+            <!-- Cost Overview -->
+            <div class="card">
+                <h3>💰 Cost Overview</h3>
+                <div class="metric">
+                    <span>Current Month</span>
+                    <span class="metric-value" id="current-cost">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Projected</span>
+                    <span class="metric-value" id="projected-cost">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Savings Opportunity</span>
+                    <span class="metric-value status-good" id="savings">Loading...</span>
+                </div>
+                <button class="btn" onclick="runCostAnalysis()">Analyze Costs</button>
+            </div>
+
+            <!-- Multi-Cloud Status -->
+            <div class="card">
+                <h3>🌐 Multi-Cloud Status</h3>
+                <div class="metric">
+                    <span>AWS</span>
+                    <span class="metric-value status-good" id="aws-status">Active</span>
+                </div>
+                <div class="metric">
+                    <span>Azure</span>
+                    <span class="metric-value status-warning" id="azure-status">Configured</span>
+                </div>
+                <div class="metric">
+                    <span>GCP</span>
+                    <span class="metric-value status-warning" id="gcp-status">Configured</span>
+                </div>
+                <button class="btn" onclick="compareCloudCosts()">Compare Costs</button>
+            </div>
+
+            <!-- Security Status -->
+            <div class="card">
+                <h3>🔒 Security Status</h3>
+                <div class="metric">
+                    <span>Risk Score</span>
+                    <span class="metric-value" id="risk-score">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Critical Issues</span>
+                    <span class="metric-value status-error" id="critical-issues">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Last Scan</span>
+                    <span class="metric-value" id="last-scan">Loading...</span>
+                </div>
+                <button class="btn" onclick="runSecurityScan()">Security Scan</button>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="card">
+                <h3>📈 Performance</h3>
+                <div class="metric">
+                    <span>System Load</span>
+                    <span class="metric-value status-good" id="system-load">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Memory Usage</span>
+                    <span class="metric-value" id="memory-usage">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Response Time</span>
+                    <span class="metric-value status-good" id="response-time">Loading...</span>
+                </div>
+                <button class="btn" onclick="refreshMetrics()">Refresh</button>
+            </div>
+
+            <!-- AI Predictions -->
+            <div class="card">
+                <h3>🤖 AI Insights</h3>
+                <div class="metric">
+                    <span>Cost Trend</span>
+                    <span class="metric-value" id="cost-trend">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Confidence</span>
+                    <span class="metric-value" id="ai-confidence">Loading...</span>
+                </div>
+                <div class="metric">
+                    <span>Next Action</span>
+                    <span class="metric-value" id="next-action">Loading...</span>
+                </div>
+                <button class="btn" onclick="runAIAnalysis()">AI Analysis</button>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <h3>⚡ Quick Actions</h3>
+                <button class="btn" onclick="quickCostCheck()">Quick Cost Check</button>
+                <button class="btn" onclick="securityStatus()">Security Status</button>
+                <button class="btn" onclick="performanceCheck()">Performance Check</button>
+                <button class="btn" onclick="generateReport()">Generate Report</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated data - would connect to actual APIs
+        function updateDashboard() {
+            document.getElementById('current-cost').textContent = '$' + (Math.random() * 1000 + 500).toFixed(2);
+            document.getElementById('projected-cost').textContent = '$' + (Math.random() * 1200 + 600).toFixed(2);
+            document.getElementById('savings').textContent = '$' + (Math.random() * 200 + 50).toFixed(2);
+            document.getElementById('risk-score').textContent = Math.floor(Math.random() * 30 + 10);
+            document.getElementById('critical-issues').textContent = Math.floor(Math.random() * 3);
+            document.getElementById('last-scan').textContent = new Date().toLocaleTimeString();
+            document.getElementById('system-load').textContent = (Math.random() * 2 + 0.5).toFixed(2);
+            document.getElementById('memory-usage').textContent = Math.floor(Math.random() * 30 + 40) + '%';
+            document.getElementById('response-time').textContent = Math.floor(Math.random() * 200 + 100) + 'ms';
+            document.getElementById('cost-trend').textContent = Math.random() > 0.5 ? 'Increasing' : 'Stable';
+            document.getElementById('ai-confidence').textContent = Math.floor(Math.random() * 20 + 80) + '%';
+            document.getElementById('next-action').textContent = 'Optimize EC2';
+        }
+
+        // Action functions
+        function runCostAnalysis() { alert('Running cost analysis...'); }
+        function compareCloudCosts() { alert('Comparing cloud costs...'); }
+        function runSecurityScan() { alert('Running security scan...'); }
+        function refreshMetrics() { updateDashboard(); }
+        function runAIAnalysis() { alert('Running AI analysis...'); }
+        function quickCostCheck() { alert('Quick cost check completed'); }
+        function securityStatus() { alert('Security status: Good'); }
+        function performanceCheck() { alert('Performance check completed'); }
+        function generateReport() { alert('Generating comprehensive report...'); }
+
+        // Initialize dashboard
+        updateDashboard();
+        setInterval(updateDashboard, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+flask==2.3.3
+requests==2.31.0
+boto3==1.28.85
+azure-cli-core==2.53.0
+google-cloud-billing==1.12.1
+pyyaml==6.0.1
