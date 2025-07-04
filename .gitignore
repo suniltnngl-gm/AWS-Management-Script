@@ -1,39 +1,20 @@
-# AWS Management Scripts - Git Ignore
-
 # Sensitive files
-*.cfg
-*_creds
-.aws_temp_creds
-mfa.cfg
-
-# State and logs
-.aws_management_state/
-*.log
-chat/session_*.md
-
-# Temporary files
-/tmp/
-*.tmp
-*.bak
-
-# Documents folder (plain text)
-
-documents/
 .docs_passphrase
 private_docs/
-private_docs.zip
+*.key
+*.pem
+.env
+.aws/
 
-# Encrypted documents (tracked)
-# encrypted_docs/ - tracked in git
+# Build artifacts
+build/
+dist/
+*.zip
 
-# IDE files
-.vscode/launch.json
-.idea/
+# Logs
+*.log
+test_results.log.*
 
 # OS files
 .DS_Store
 Thumbs.db
-
-# Runtime files
-*.pid
-*.lock
