@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # @file tools/file_analyzer.sh
 # @brief Comprehensive file analysis and metrics tool
 # @description Reusable analysis framework for all project files
@@ -7,7 +9,7 @@
 set -euo pipefail
 
 # Source logging utilities
-source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || {
+source "$SCRIPT_DIR/../lib/log_utils.sh" 2>/dev/null || {
     mkdir -p "$(dirname "$0")/../lib"
     cat > "$(dirname "$0")/../lib/log_utils.sh" << 'EOF'
 #!/bin/bash
@@ -26,7 +28,7 @@ log_warn() { [[ "$LOG_LEVEL" =~ (DEBUG|INFO|WARN) ]] && log "WARN" "$@"; }
 log_error() { log "ERROR" "$@"; }
 log_debug() { [[ "$LOG_LEVEL" == "DEBUG" ]] && log "DEBUG" "$@"; }
 EOF
-    source "$(dirname "$0")/../lib/log_utils.sh"
+    source "$SCRIPT_DIR/../lib/log_utils.sh"
 }
 
 # @function analyze_file

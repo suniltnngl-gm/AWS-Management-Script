@@ -1,4 +1,6 @@
 #!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Automated test for all .sh scripts: checks --help or usage output
 # Logs output to test_results.log
 #

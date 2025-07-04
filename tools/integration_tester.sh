@@ -1,12 +1,14 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # @file tools/integration_tester.sh
 # @brief Phase 4: Integration & Testing implementation
 # @description Test logging integration across all components
 
 set -euo pipefail
 
-source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
+source "$SCRIPT_DIR/../lib/log_utils.sh" 2>/dev/null || true
 
 TEST_LOG="/tmp/integration_test.log"
 RESULTS_FILE="integration_test_results.txt"

@@ -1,0 +1,51 @@
+🔍 PROJECT ANALYSIS REPORT
+==========================
+Date: Fri Jul  4 19:46:03 UTC 2025
+Path: /workspaces/AWS-Management-Script
+
+📊 FILE STATISTICS
+Shell scripts: 96
+Python files: 19
+Config files: 1546
+Docs: 31
+
+🚀 MAIN ENTRY POINTS
+✅ aws-cli.sh (70 lines)
+✅ aws.sh (12 lines)
+✅ tools.sh (198 lines)
+
+📁 DIRECTORY STRUCTURE
+✅ bin/ (20 scripts)
+✅ lib/ (15 scripts)
+✅ tools/ (8 scripts)
+✅ client/ (1 scripts)
+
+🔗 BROKEN LINKS
+
+⚡ EXECUTABLE STATUS
+❌ Not executable: ./lib/aws_config.sh
+❌ Not executable: ./lib/slack_notify.sh
+❌ Not executable: ./lib/log_utils.sh
+❌ Not executable: ./lib/production_logger.sh
+❌ Not executable: ./lib/integrations.sh
+
+📦 LARGE FILES (>1MB)
+123M ./.git/objects/pack/pack-7684e007699d97c38c1b7131255f42c6842c418f.pack
+1.4M ./aws/dist/libsqlite3.so.0
+6.4M ./aws/dist/aws
+26M ./aws/dist/_awscrt.abi3.so
+3.3M ./aws/dist/lib-dynload/_hashlib.cpython-313-x86_64-linux-gnu.so
+
+📝 GIT STATUS
+ M analysis/integrity_check.sh
+ M aws.sh
+ M bin/ai_tools.sh
+ M bin/analyze_ci_log.sh
+ M bin/archive_tools.sh
+ M bin/aws.sh
+ M bin/ci_log_utils.sh
+ M bin/cloudshell.sh
+ M bin/report.sh
+ M bin/test_all.sh
+
+Analysis complete. Check for ❌ items that need attention.

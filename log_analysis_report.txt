@@ -1,4 +1,4 @@
-# Log Analysis Report - Fri Jul  4 13:13:11 UTC 2025
+# Log Analysis Report - Fri Jul  4 19:46:42 UTC 2025
 # Source: /tmp/aws-mgmt.log
 # ==========================
 
@@ -9,10 +9,10 @@ Warnings: 0
 0
 
 ## Performance Metrics
-[2025-07-04 13:13:10] [INFO] PERF: File analysis completed in 0s
-[2025-07-04 13:13:10] [INFO] PERF: Log parsing completed in 0s
+No performance data found
 
 ## Usage Statistics
-Total log entries: 11
-Analysis entries: 1
-Info entries: 11
+Total log entries: 2
+Analysis entries: 0
+0
+Info entries: 2

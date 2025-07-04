@@ -1,12 +1,14 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # @file tools/real_world_analyzer.sh
 # @brief Real-world AWS analysis with production logging
 # @description Enhanced analysis for production AWS environments
 
 set -euo pipefail
 
-source "$(dirname "$0")/../lib/production_logger.sh"
+source "$SCRIPT_DIR/../lib/production_logger.sh"
 
 # @function analyze_aws_costs
 # @brief Real-world cost analysis with detailed breakdown

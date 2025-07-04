@@ -1,7 +1,9 @@
 
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Enhanced logging
-source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
+source "$SCRIPT_DIR/../lib/log_utils.sh" 2>/dev/null || true
 #!/bin/bash
 # Single entry point for all project actions: repo, workflow, cloud, ai, workspace
 set -e

@@ -1,12 +1,14 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # @file tools/monitoring_dashboard.sh
 # @brief Real-time monitoring dashboard for production AWS environments
 # @description Live monitoring with alerts and notifications
 
 set -euo pipefail
 
-source "$(dirname "$0")/../lib/production_logger.sh"
+source "$SCRIPT_DIR/../lib/production_logger.sh"
 
 DASHBOARD_PORT="${AWS_MGMT_DASHBOARD_PORT:-8080}"
 REFRESH_INTERVAL="${AWS_MGMT_REFRESH:-30}"

@@ -177,3 +177,22 @@ case $1 in
         usage
         ;;
 esac
+main() {
+    echo "🛠️ AWS Management Tools"
+    echo "======================"
+    echo "1. MFA Authentication"
+    echo "2. Save Chat History" 
+    echo "3. Budget Recommendations"
+    echo "4. Log Analysis"
+    
+    read -p "Select option (1-4): " choice
+    case $choice in
+        1) ./bin/mfa_aws.sh ;;
+        2) read -p "Summary: " summary; echo "$summary" > "chat_$(date +%s).txt" ;;
+        3) ./hub-logic/spend_hub.sh ;;
+        4) ./tools/log_analyzer.sh parse ;;
+        *) echo "Invalid option" ;;
+    esac
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"

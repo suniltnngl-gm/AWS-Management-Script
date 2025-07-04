@@ -6,7 +6,8 @@
 
 set -euo pipefail
 
-source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../lib/log_utils.sh" 2>/dev/null || true
 
 LOG_DIR="/tmp"
 ANALYSIS_OUTPUT="log_analysis_report.txt"

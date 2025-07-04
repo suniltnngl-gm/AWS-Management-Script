@@ -41,7 +41,7 @@ for arg in "$@"; do
 done
 set -- "${ARGS[@]}"
 
-source "$(dirname "$0")/../lib/config_loader.sh"
+source "$SCRIPT_DIR/../lib/config_loader.sh"
 
 # @function get_free_tier_limits
 # @brief AWS Free Tier resource limits

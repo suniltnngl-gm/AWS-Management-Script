@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # @file tools/enhanced_analyzer.sh
 # @brief Enhanced file analysis with logging integration
 # @description Comprehensive analysis following the analysis plan
@@ -174,7 +176,7 @@ enhance_logging() {
             # Add logging source (if not present)
             if ! grep -q "source.*log_utils" "$script"; then
                 # Insert after shebang
-                sed -i '2i\\n# Enhanced logging\nsource "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true' "$script"
+                sed -i '2i\\n# Enhanced logging\nsource "$SCRIPT_DIR/../lib/log_utils.sh" 2>/dev/null || true' "$script"
                 enhanced_count=$((enhanced_count + 1))
             fi
         fi

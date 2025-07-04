@@ -1,4 +1,6 @@
 #!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Check for missing critical functions/files
 
 echo "🔧 INTEGRITY CHECK"
