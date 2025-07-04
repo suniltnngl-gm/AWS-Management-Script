@@ -1,12 +1,9 @@
 {
-  "files.associations": {
-    "*.sh": "shellscript",
-    "*.conf": "properties"
-  },
-  "shellcheck.enable": true,
-  "terminal.integrated.defaultProfile.linux": "bash",
+  "git.autofetch": true,
+  "git.autofetchPeriod": 180,
+  "git.autoStash": true,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
-  "git.autofetch": true,
-  "workbench.startupEditor": "readme"
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false
 }
