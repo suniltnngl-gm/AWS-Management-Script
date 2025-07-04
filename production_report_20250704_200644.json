@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-07-04T20:06:44.011773",
+  "environment": {
+    "aws_region": "not-set",
+    "user": "codespace",
+    "hostname": "codespaces-8ba8fc",
+    "python_version": "3.12.1 (main, May 30 2025, 12:50:35) [GCC 13.3.0]"
+  },
+  "aws_status": {
+    "available": false,
+    "identity": null
+  },
+  "deployment": {
+    "build_dir": "/tmp/aws-mgmt-prod",
+    "deploy_dir": "/home/codespace/aws-mgmt-deploy",
+    "files_deployed": 1
+  }
+}
