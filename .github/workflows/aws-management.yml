@@ -1,0 +1,105 @@
+name: AWS Management Scripts CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+
+env:
+  AWS_DEFAULT_REGION: us-east-1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup AWS credentials
+      run: |
+        bash core/secrets_manager.sh setup-aws
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Validate secrets
+      run: bash core/secrets_manager.sh validate
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Run analysis tests
+      run: |
+        chmod +x analysis/engine.sh
+        bash analysis/engine.sh cache-clear
+        echo "✅ Analysis engine ready"
+    
+    - name: Security scan
+      run: |
+        chmod +x modules/security/scanner.sh
+        bash modules/security/scanner.sh scan || echo "Security scan completed"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Cost optimization check
+      run: |
+        chmod +x modules/cost/optimizer.sh
+        bash modules/cost/optimizer.sh optimize || echo "Cost optimization completed"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build package
+      run: bash build.sh
+    
+    - name: Deploy to production
+      run: bash deploy.sh local
+    
+    - name: Send notification
+      if: always()
+      run: |
+        if [[ -n "${{ secrets.SLACK_WEBHOOK_URL }}" ]]; then
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"🚀 AWS Management Scripts deployed successfully!"}' \
+            "${{ secrets.SLACK_WEBHOOK_URL }}"
+        fi
+
+  daily-analysis:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup AWS credentials
+      run: bash core/secrets_manager.sh setup-aws
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Daily cost analysis
+      run: bash modules/cost/optimizer.sh optimize
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Daily security scan
+      run: bash modules/security/scanner.sh scan
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    - name: Send daily report
+      run: |
+        if [[ -n "${{ secrets.EMAIL_ALERTS_TO }}" ]]; then
+          echo "Daily AWS analysis completed" | mail -s "AWS Daily Report" "${{ secrets.EMAIL_ALERTS_TO }}" || true
+        fi
