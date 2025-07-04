@@ -1,34 +1,41 @@
 #!/bin/bash
-# Analyze CI/CD logs for build, deploy, run steps
-# Usage: bin/analyze_ci_log.sh <logfile>
 
-LOG_FILE="$1"
-if [ -z "$LOG_FILE" ] || [ ! -f "$LOG_FILE" ]; then
-  echo "Usage: $0 <logfile>"
-  echo "Log file not found: $LOG_FILE"
-  exit 2
+# analyze_ci_log.sh: Analyzes structured JSON logs from the CI process.
+# Requires `jq` to be installed.
+
+LOG_FILE="${CI_LOG_FILE:-ci.log}"
+
+if ! command -v jq &> /dev/null; then
+    echo "Error: jq is not installed. This script requires jq for log analysis."
+    echo "Please install jq to continue."
+    exit 1
 fi
 
-INFO_COUNT=$(grep -c '\[CI-INFO\]' "$LOG_FILE")
-WARN_COUNT=$(grep -c '\[CI-WARN\]' "$LOG_FILE")
-ERROR_COUNT=$(grep -c '\[CI-ERROR\]' "$LOG_FILE")
-STAGE_COUNT=$(grep -c '\[CI-STAGE\]' "$LOG_FILE")
-SUMMARY_COUNT=$(grep -c '\[CI-SUMMARY\]' "$LOG_FILE")
+if [ ! -f "$LOG_FILE" ]; then
+    echo "Error: Log file not found at '$LOG_FILE'"
+    exit 1
+fi
 
-echo "CI Log Analysis for $LOG_FILE:"
-echo "  INFO:    $INFO_COUNT"
-echo "  WARN:    $WARN_COUNT"
-echo "  ERROR:   $ERROR_COUNT"
-echo "  STAGE:   $STAGE_COUNT"
-echo "  SUMMARY: $SUMMARY_COUNT"
+echo "--- Analyzing Log File: $LOG_FILE ---"
 
-echo -e "\nLast 5 errors/warnings:"
-grep -E '\[CI-(ERROR|WARN)\]' "$LOG_FILE" | tail -5
+# Filter out only valid JSON lines for analysis
+JSON_LOGS=$(grep '^{' "$LOG_FILE")
 
-echo -e "\nLast 5 stages:"
-grep '\[CI-STAGE\]' "$LOG_FILE" | tail -5
+ERROR_COUNT=$(echo "$JSON_LOGS" | jq -s 'map(select(.level=="ERROR")) | length')
+WARN_COUNT=$(echo "$JSON_LOGS" | jq -s 'map(select(.level=="WARN")) | length')
 
-echo -e "\nLast 5 summaries:"
-grep '\[CI-SUMMARY\]' "$LOG_FILE" | tail -5
+echo
+echo "--- Summary ---"
+echo "Errors:   $ERROR_COUNT"
+echo "Warnings: $WARN_COUNT"
+echo "---------------"
+echo
 
-exit $ERROR_COUNT
+if [ "$ERROR_COUNT" -gt 0 ]; then
+    echo "Displaying error details:"
+    echo "$JSON_LOGS" | jq 'select(.level=="ERROR")'
+    echo
+    echo "Analysis finished with errors."
+fi
+
+echo "Analysis complete."
