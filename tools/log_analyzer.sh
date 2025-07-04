@@ -37,7 +37,8 @@ parse_logs() {
         echo "Errors: $error_count"
         echo "Warnings: $warn_count"
         
-        if [[ $error_count -gt 0 ]]; then
+        error_count=${error_count//[^0-9]/}
+        if [[ ${error_count:-0} -gt 0 ]]; then
             echo
             echo "### Recent Errors:"
             grep "\[ERROR\]" "$log_file" | tail -5
