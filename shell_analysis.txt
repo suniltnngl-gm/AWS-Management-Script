@@ -1,9 +1,9 @@
 # Shell Scripts Analysis
-# Generated: Fri Jul  4 12:57:34 UTC 2025
+# Generated: Fri Jul  4 13:05:30 UTC 2025
 # ======================
 
 ## Analyzing: ./vscode.sh
-  Lines: 7, Size: 303 bytes
+  Lines: 10, Size: 388 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -11,7 +11,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./aws.sh
-  Lines: 7, Size: 306 bytes
+  Lines: 10, Size: 391 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -19,7 +19,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./build/aws-management-scripts-2.0.0/vscode.sh
-  Lines: 7, Size: 303 bytes
+  Lines: 10, Size: 388 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -27,7 +27,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./build/aws-management-scripts-2.0.0/aws.sh
-  Lines: 7, Size: 306 bytes
+  Lines: 10, Size: 391 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -56,14 +56,14 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./build/aws-management-scripts-2.0.0/client/aws_client.sh
-  Lines: 88, Size: 3049 bytes
+  Lines: 91, Size: 3134 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 4
   ✅ Error handling: Present
 
 ## Analyzing: ./build/aws-management-scripts-2.0.0/cloudshell.sh
-  Lines: 7, Size: 302 bytes
+  Lines: 10, Size: 387 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -92,7 +92,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./build/aws-management-scripts-2.0.0/helper.sh
-  Lines: 64, Size: 1642 bytes
+  Lines: 67, Size: 1727 bytes
   ❌ Syntax: Invalid
   ⚠️  Shebang: Missing or non-standard
   Functions: 1
@@ -127,7 +127,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./run/run.sh
-  Lines: 34, Size: 972 bytes
+  Lines: 37, Size: 1057 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -224,7 +224,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./lib/integrations.sh
-  Lines: 25, Size: 533 bytes
+  Lines: 28, Size: 618 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 1
@@ -309,8 +309,15 @@
   Functions: 2
   ✅ Error handling: Present
 
+## Analyzing: ./tools/integration_tester.sh
+  Lines: 142, Size: 4093 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 3
+  ✅ Error handling: Present
+
 ## Analyzing: ./tools/apply_patch.sh
-  Lines: 21, Size: 575 bytes
+  Lines: 24, Size: 660 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -325,11 +332,18 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./tools/analyze.sh
-  Lines: 73, Size: 2277 bytes
+  Lines: 76, Size: 2362 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
 0
+  ✅ Error handling: Present
+
+## Analyzing: ./tools/log_analyzer.sh
+  Lines: 129, Size: 4021 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 3
   ✅ Error handling: Present
 
 ## Analyzing: ./tools/file_analyzer.sh
@@ -361,7 +375,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./bin/aws.sh
-  Lines: 7, Size: 306 bytes
+  Lines: 10, Size: 391 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -399,7 +413,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./bin/analyze_ci_log.sh
-  Lines: 41, Size: 1039 bytes
+  Lines: 44, Size: 1124 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -407,7 +421,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./bin/report.sh
-  Lines: 25, Size: 536 bytes
+  Lines: 28, Size: 621 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 1
@@ -422,7 +436,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./bin/archive_tools.sh
-  Lines: 21, Size: 382 bytes
+  Lines: 24, Size: 467 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 1
@@ -452,7 +466,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./bin/ci_log_utils.sh
-  Lines: 32, Size: 833 bytes
+  Lines: 35, Size: 918 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 5
@@ -467,7 +481,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./bin/cloudshell.sh
-  Lines: 7, Size: 302 bytes
+  Lines: 10, Size: 387 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -497,7 +511,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./bin/ai_tools.sh
-  Lines: 21, Size: 367 bytes
+  Lines: 24, Size: 452 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 1
@@ -520,7 +534,7 @@
   ⚠️  Error handling: Missing 'set -e'
 
 ## Analyzing: ./frontend/run.sh
-  Lines: 24, Size: 646 bytes
+  Lines: 27, Size: 731 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -528,14 +542,14 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./client/aws_client.sh
-  Lines: 88, Size: 3049 bytes
+  Lines: 91, Size: 3134 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 4
   ✅ Error handling: Present
 
 ## Analyzing: ./cloudshell.sh
-  Lines: 7, Size: 302 bytes
+  Lines: 10, Size: 387 bytes
   ✅ Syntax: Valid
   ✅ Shebang: Present
   Functions: 0
@@ -572,7 +586,7 @@
   ✅ Error handling: Present
 
 ## Analyzing: ./helper.sh
-  Lines: 64, Size: 1642 bytes
+  Lines: 67, Size: 1727 bytes
   ❌ Syntax: Invalid
   ⚠️  Shebang: Missing or non-standard
   Functions: 1

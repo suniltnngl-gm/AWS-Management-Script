@@ -1,25 +1,25 @@
 # AWS Management Scripts - Structure Analysis
-# Generated: Fri Jul  4 12:57:34 UTC 2025
+# Generated: Fri Jul  4 13:05:29 UTC 2025
 # ============================================
 
 ## Directory Structure
-  ./ (35 files)
+  ./ (44 files)
   ./.vscode/ (1 files)
   ./AWS-Management-Script/ (0 files)
   ./backend/ (3 files)
   ./backend/api/ (1 files)
   ./backend/models/ (1 files)
   ./backend/services/ (1 files)
-  ./bin/ (20 files)
+  ./bin/ (33 files)
   ./build/ (1 files)
-  ./build/aws-management-scripts-2.0.0/ (12 files)
-  ./build/aws-management-scripts-2.0.0/client/ (1 files)
+  ./build/aws-management-scripts-2.0.0/ (16 files)
+  ./build/aws-management-scripts-2.0.0/client/ (2 files)
   ./build/aws-management-scripts-2.0.0/config/ (1 files)
   ./build/aws-management-scripts-2.0.0/templates/ (1 files)
   ./chat/ (6 files)
-  ./client/ (1 files)
+  ./client/ (2 files)
   ./config/ (1 files)
-  ./deploy/ (1 files)
+  ./deploy/ (2 files)
   ./docs/ (3 files)
   ./documents/ (1 files)
   ./documents/refactor/ (3 files)
@@ -27,7 +27,7 @@
   ./encrypted_docs/ (1 files)
   ./encrypted_docs/refactor/ (3 files)
   ./encrypted_docs/whatnext/ (1 files)
-  ./frontend/ (3 files)
+  ./frontend/ (4 files)
   ./frontend/components/ (1 files)
   ./frontend/public/ (1 files)
   ./frontend/src/ (1 files)
@@ -35,27 +35,28 @@
   ./hub-logic/calculators/ (1 files)
   ./hub-logic/optimizers/ (1 files)
   ./hub-logic/policies/ (1 files)
-  ./lib/ (14 files)
+  ./lib/ (27 files)
   ./router-logic/ (1 files)
   ./router-logic/availability/ (1 files)
   ./router-logic/failover/ (1 files)
   ./router-logic/routing/ (1 files)
-  ./run/ (1 files)
+  ./run/ (2 files)
   ./switch-logic/ (1 files)
   ./switch-logic/controllers/ (0 files)
   ./switch-logic/evaluation/ (1 files)
   ./switch-logic/stable/ (1 files)
   ./templates/ (1 files)
-  ./test/ (1 files)
-  ./tools/ (5 files)
+  ./test/ (2 files)
+  ./tools/ (9 files)
   ./tools/AWS-Management-Script/ (0 files)
 
 ## File Type Distribution
-     77 sh
-     22 md
+     79 sh
+     42 bak
+     23 md
+      7 txt
       5 enc
       4 py
-      3 txt
       3 log
       3 json
       2 js
@@ -79,7 +80,9 @@
       1 /Dockerfile
 
 ## Large Files (>10KB)
+29K ./dependency_analysis.txt
 11K ./router-logic/failover/auto_failover.sh
+14K ./shell_analysis.txt
 16K ./test_results.log.1
 34K ./encrypted_docs/q-dev-chat-2025-07-02.md.enc
 34K ./documents/q-dev-chat-2025-07-02.md
