@@ -28,6 +28,8 @@ class MultiAIAssistant:
             return self._security_cleanup()
         elif 'cost' in request_lower and 'reduce' in request_lower:
             return self._cost_reduction_cleanup()
+        elif 'cloudshell' in request_lower and 'cleanup' in request_lower:
+            return self._cloudshell_cleanup()
         elif 'cloud cleanup' in request_lower or 'cleanup' in request_lower:
             return self._execute_cloud_cleanup()
         else:
@@ -142,15 +144,42 @@ class MultiAIAssistant:
             'command': 'python3 iam_sso_cleanup.py'
         }
     
+    def _cloudshell_cleanup(self):
+        """CloudShell environment cleanup"""
+        print("🧹 CLOUDSHELL CLEANUP")
+        print("====================")
+        
+        try:
+            import subprocess
+            result = subprocess.run(['bash', 'cloudshell_cleanup.sh'], 
+                                  capture_output=True, text=True, timeout=30)
+            if result.stdout:
+                print(result.stdout)
+        except Exception as e:
+            print(f"⚠️ Error: {e}")
+        
+        return {
+            'status': 'cloudshell_cleanup',
+            'message': 'CloudShell environment cleaned up',
+            'actions': [
+                'Removed temporary files',
+                'Cleaned Python cache', 
+                'Cleared AWS CLI cache',
+                'Optimized git repository'
+            ],
+            'command': 'bash cloudshell_cleanup.sh'
+        }
+    
     def _general_cleanup_help(self):
         """General cleanup guidance"""
         return {
             'status': 'help',
-            'message': 'I can help with cloud cleanup! Try: "cloud cleanup", "emergency cleanup", "IAM cleanup", or "cost reduction cleanup"',
+            'message': 'I can help with cloud cleanup! Try: "cloud cleanup", "emergency cleanup", "IAM cleanup", "cloudshell cleanup"',
             'available_commands': [
                 'python3 casual_dev.py costs - Check what needs cleanup',
                 'python3 startup_optimizer.py wins 50 - Quick cleanup wins',
-                'python3 iam_sso_cleanup.py - Security cleanup'
+                'python3 iam_sso_cleanup.py - Security cleanup',
+                'bash cloudshell_cleanup.sh - CloudShell cleanup'
             ]
         }
 
