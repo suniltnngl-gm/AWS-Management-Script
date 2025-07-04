@@ -6,6 +6,12 @@
 
 set -euo pipefail
 
+# Source CI logging utilities
+CI_LOG_FILE="run_results.log"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../../bin/ci_log_utils.sh"
+
+ci_log_stage "Run Step Started: $(date)"
+
 # Setup Python environment
 if [[ ! -d "venv" ]]; then
     python3 -m venv venv
@@ -31,3 +37,5 @@ echo "  POST /api/mfa"
 echo "  GET  /api/integrations"
 
 python3 api/server.py
+
+ci_log_summary "Run Step Completed: $(date)"

@@ -1,0 +1,15 @@
+name: Shell Script Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bash and coreutils
+        run: sudo apt-get update && sudo apt-get install -y bash coreutils
+      - name: Run all script tests
+        run: bash bin/test_all.sh
+      - name: Analyze test log
+        run: bash bin/analyze_test_log.sh

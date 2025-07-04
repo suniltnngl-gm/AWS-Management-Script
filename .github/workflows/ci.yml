@@ -1,0 +1,49 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bash and coreutils
+        run: sudo apt-get update && sudo apt-get install -y bash coreutils
+      - name: Run all script tests
+        run: bash bin/test_all.sh
+      - name: Analyze test log
+        run: bash bin/analyze_test_log.sh
+      - name: Upload test log
+        uses: actions/upload-artifact@v4
+        with:
+          name: test_results_log
+          path: test_results.log*
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (placeholder)
+        run: echo "Build step here (add your build commands)"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy (placeholder)
+        run: echo "Deploy step here (add your deploy commands)"
+
+  run:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run (placeholder)
+        run: echo "Run step here (add your run/launch commands)"

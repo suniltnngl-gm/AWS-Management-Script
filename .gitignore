@@ -17,8 +17,11 @@ chat/session_*.md
 *.bak
 
 # Documents folder (plain text)
+
 documents/
 .docs_passphrase
+private_docs/
+private_docs.zip
 
 # Encrypted documents (tracked)
 # encrypted_docs/ - tracked in git
