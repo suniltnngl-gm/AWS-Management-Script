@@ -1,12 +1,15 @@
 #!/bin/bash
 
+# Enhanced logging
+source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
+
 # @file client/aws_client.sh
 # @brief AWS automation client
 # @description Client interface for automated AWS operations
 
 set -euo pipefail
 
-source "$(dirname "$0")/../core/helpers.sh"
+source "$(dirname "$0")/../core/helpers.sh" 2>/dev/null || echo "Warning: helpers.sh not found"
 source "$(dirname "$0")/../core/automation.sh"
 
 show_automation_menu() {

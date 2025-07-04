@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enhanced logging
+source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
+
 # analyze_ci_log.sh: Analyzes structured JSON logs from the CI process.
 # Requires `jq` to be installed.
 

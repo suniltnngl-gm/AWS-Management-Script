@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Enhanced logging
+source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
 # CI/CD Logging Utilities for build, deploy, run steps
 #
 # Provides standardized logging and status reporting for all pipeline stages.

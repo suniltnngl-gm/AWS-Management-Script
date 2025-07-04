@@ -1,0 +1,10 @@
+# File Analysis Report - Fri Jul  4 12:55:56 UTC 2025
+# Directory: .
+# Format: ANALYSIS:file|metric1:value1|metric2:value2|...
+
+[2025-07-04 12:55:56] [INFO] Analyzing file: ./vscode.sh
+SYNTAX:valid
+FUNCTIONS:0
+0
+SHEBANG:present
+ANALYSIS:./vscode.sh|SIZE:303|LINES:7|WORDS:33|TYPE:shell

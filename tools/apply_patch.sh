@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Enhanced logging
+source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
 set -euo pipefail
 
 # apply_patch.sh: Applies a unified diff file to the repository.

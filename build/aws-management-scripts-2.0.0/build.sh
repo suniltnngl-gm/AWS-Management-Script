@@ -1,16 +1,40 @@
 #!/bin/bash
-
 # @file build.sh
 # @brief Build and package AWS Management Scripts
 # @description Creates distributable package with validation
 
 set -euo pipefail
 
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/log_utils.sh"
+source "$SCRIPT_DIR/lib/aws_utils.sh"
+
+# Source CI logging utilities
+CI_LOG_FILE="build_results.log"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+
+usage() {
+    echo "Usage: $0 [build|validate|install|all|--help|-h]"
+    echo "  build        Build the package"
+    echo "  validate     Validate the build"
+    echo "  install      Install locally"
+    echo "  all          Build and validate"
+    echo "  --help, -h   Show this help message"
+    exit 0
+}
+
+if [[ $# -gt 0 && ( $1 == "--help" || $1 == "-h" ) ]]; then
+    usage
+fi
+
 VERSION="2.0.0"
 BUILD_DIR="build"
 PACKAGE_NAME="aws-management-scripts-$VERSION"
 
 build_package() {
+    ci_log_stage "Build Step Started: $(date)"
     echo "Building AWS Management Scripts v$VERSION"
     
     # Clean and create build directory
@@ -38,6 +62,7 @@ build_package() {
     
     echo "✅ Package created: $BUILD_DIR/$PACKAGE_NAME.tar.gz"
     echo "📦 Size: $(du -h "$BUILD_DIR/$PACKAGE_NAME.tar.gz" | cut -f1)"
+    ci_log_summary "Build Step Completed: $(date)"
 }
 
 validate_build() {

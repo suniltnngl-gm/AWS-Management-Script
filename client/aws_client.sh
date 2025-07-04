@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enhanced logging
+source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
+
 # @file client/aws_client.sh
 # @brief AWS automation client
 # @description Client interface for automated AWS operations

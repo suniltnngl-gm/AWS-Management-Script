@@ -1,51 +1,76 @@
 #!/bin/bash
 
-# log_utils.sh: Provides basic and structured JSON logging functions.
+# @file lib/log_utils.sh
+# @brief Centralized logging utilities
+# @description Standardized logging system for AWS Management Scripts
 
-LOG_FILE="${CI_LOG_FILE:-ci.log}"
+# Configuration
+LOG_LEVEL=${LOG_LEVEL:-INFO}
+LOG_FILE=${LOG_FILE:-/tmp/aws-mgmt.log}
+LOG_MAX_SIZE=${LOG_MAX_SIZE:-10485760}  # 10MB
 
-
-# --- Basic Logging Functions ---
-# For simple, human-readable status updates to STDOUT and the log file.
-
-log_info() {
-    echo "[INFO] $(date -u +"%Y-%m-%dT%H:%M:%SZ"): $1" | tee -a "$LOG_FILE"
-}
-
-log_warn() {
-    echo "[WARN] $(date -u +"%Y-%m-%dT%H:%M:%SZ"): $1" | tee -a "$LOG_FILE"
-}
-
-log_error() {
-    echo "[ERROR] $(date -u +"%Y-%m-%dT%H:%M:%SZ"): $1" | tee -a "$LOG_FILE"
-}
-
-
-# --- Structured JSON Logging ---
-# For detailed, machine-readable log entries. Requires `jq`.
-# Usage: log_json "LEVEL" "A short summary message" "{\"key\":\"value\",\"details\":\"more_info\"}"
-
-log_json() {
-    if ! command -v jq &> /dev/null; then
-        log_error "jq is not installed. Cannot create JSON log."
-        return 1
+# @function log
+# @brief Core logging function
+log() {
+    local level=$1; shift
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    local message="[$timestamp] [$level] $*"
+    
+    # Output to console and file
+    echo "$message" | tee -a "$LOG_FILE"
+    
+    # Log rotation if needed
+    if [[ -f "$LOG_FILE" ]] && [[ $(stat -f%z "$LOG_FILE" 2>/dev/null || stat -c%s "$LOG_FILE" 2>/dev/null || echo "0") -gt $LOG_MAX_SIZE ]]; then
+        mv "$LOG_FILE" "${LOG_FILE}.old"
+        touch "$LOG_FILE"
     fi
-
-    local level="$1"
-    local message="$2"
-    # Optional: Pass a JSON string of details
-    local details_json="${3:-{\}}"
-
-    # Get the name of the script that called this function
-    local calling_script
-    calling_script=$(basename "${BASH_SOURCE[1]}")
-
-    # Create the JSON log entry
-    jq -n \
-      --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-      --arg level "$level" \
-      --arg script "$calling_script" \
-      --arg message "$message" \
-      --argjson details "$details_json" \
-      '{timestamp: $timestamp, level: $level, script: $script, message: $message, details: $details}' | tee -a "$LOG_FILE"
 }
+
+# @function log_info
+# @brief Info level logging
+log_info() { 
+    [[ "$LOG_LEVEL" =~ ^(DEBUG|INFO)$ ]] && log "INFO" "$@"
+}
+
+# @function log_warn
+# @brief Warning level logging
+log_warn() { 
+    [[ "$LOG_LEVEL" =~ ^(DEBUG|INFO|WARN)$ ]] && log "WARN" "$@"
+}
+
+# @function log_error
+# @brief Error level logging
+log_error() { 
+    log "ERROR" "$@"
+}
+
+# @function log_debug
+# @brief Debug level logging
+log_debug() { 
+    [[ "$LOG_LEVEL" == "DEBUG" ]] && log "DEBUG" "$@"
+}
+
+# @function log_performance
+# @brief Performance timing logging
+log_performance() {
+    local operation="$1"
+    local start_time="$2"
+    local end_time="${3:-$(date +%s)}"
+    local duration=$((end_time - start_time))
+    
+    log_info "PERF: $operation completed in ${duration}s"
+}
+
+# @function log_analysis
+# @brief Analysis result logging
+log_analysis() {
+    local component="$1"
+    local result="$2"
+    local details="${3:-}"
+    
+    log_info "ANALYSIS: $component -> $result${details:+ ($details)}"
+}
+
+# Initialize log file
+mkdir -p "$(dirname "$LOG_FILE")"
+touch "$LOG_FILE"

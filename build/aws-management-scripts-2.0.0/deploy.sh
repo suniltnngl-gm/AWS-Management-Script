@@ -1,10 +1,35 @@
 #!/bin/bash
-
 # @file deploy.sh
 # @brief Deploy AWS Management Scripts
 # @description Multi-target deployment script
 
 set -euo pipefail
+
+# Source shared utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib/log_utils.sh"
+source "$SCRIPT_DIR/lib/aws_utils.sh"
+
+# Source CI logging utilities
+CI_LOG_FILE="deploy_results.log"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+
+usage() {
+    echo "Usage: $0 [local|docker|github|s3|backend|frontend|--help|-h]"
+    echo "  local        Deploy locally"
+    echo "  docker       Deploy with Docker"
+    echo "  github       Prepare GitHub release"
+    echo "  s3           Deploy to S3"
+    echo "  backend      Deploy backend API"
+    echo "  frontend     Deploy frontend dashboard"
+    echo "  --help, -h   Show this help message"
+    exit 0
+}
+
+if [[ $# -gt 0 && ( $1 == "--help" || $1 == "-h" ) ]]; then
+    usage
+fi
 
 VERSION="2.0.0"
 PACKAGE="aws-management-scripts-$VERSION.tar.gz"
@@ -92,6 +117,8 @@ deploy_fullstack() {
     echo "✅ Full stack deployed at http://localhost:3000"
 }
 
+ci_log_stage "Deploy Step Started: $(date)"
+
 case "${1:-local}" in
     "local") deploy_local ;;
     "docker") deploy_docker ;;
@@ -103,3 +130,5 @@ case "${1:-local}" in
     "all") deploy_local && deploy_docker && deploy_backend && deploy_frontend && deploy_github ;;
     *) echo "Usage: $0 [local|docker|backend|frontend|fullstack|github|s3|all]" ;;
 esac
+
+ci_log_summary "Deploy Step Completed: $(date)"

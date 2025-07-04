@@ -1,0 +1,627 @@
+# Dependency Analysis
+# Generated: Fri Jul  4 12:57:36 UTC 2025
+# ===================
+
+## Shell Script Sources
+### ./vscode.sh
+2:# Wrapper for running manage.sh in VS Code/WSL/dev
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./aws.sh
+2:# Wrapper for running manage.sh in AWS CLI/automation
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./build/aws-management-scripts-2.0.0/vscode.sh
+2:# Wrapper for running manage.sh in VS Code/WSL/dev
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./build/aws-management-scripts-2.0.0/aws.sh
+2:# Wrapper for running manage.sh in AWS CLI/automation
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./build/aws-management-scripts-2.0.0/backup_verification.sh
+3:# @file backup_verification.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+17:    echo "  Comprehensive backup verification before migration."
+30:echo "1. Git Status Check:"
+31:if git status --porcelain | grep -q .; then
+40:echo -e "\n2. Remote Sync Check:"
+51:echo -e "\n3. File Inventory:"
+52:total_files=$(find . -type f \( -name "*.sh" -o -name "*.py" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.yml" -o -name "*.conf" \) | wc -l)
+56:echo -e "\n4. Core Components:"
+
+### ./build/aws-management-scripts-2.0.0/deploy.sh
+2:# @file deploy.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+15:CI_LOG_FILE="deploy_results.log"
+16:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+34:VERSION="2.0.0"
+35:PACKAGE="aws-management-scripts-$VERSION.tar.gz"
+38:    echo "Deploying locally..."
+39:    local install_dir="$HOME/.local/bin/aws-management"
+40:    mkdir -p "$HOME/.local/bin"
+
+### ./build/aws-management-scripts-2.0.0/aws-cli.sh
+3:# @file aws-cli.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+16:    echo "  Main entry point for AWS Management Scripts."
+22:    echo "  1  Tools Menu           (tools.sh)"
+23:    echo "  2  Automation Client    (client/aws_client.sh)"
+24:    echo "  3  Build System         (build.sh)"
+25:    echo "  4  Deploy System        (deploy.sh)"
+35:        1) ./tools.sh ;;
+36:        2) ./client/aws_client.sh ;;
+
+### ./build/aws-management-scripts-2.0.0/client/aws_client.sh
+3:# @file client/aws_client.sh
+9:source "$(dirname "$0")/../core/helpers.sh" 2>/dev/null || echo "Warning: helpers.sh not found"
+10:source "$(dirname "$0")/../core/automation.sh"
+15:    echo "1. Interactive Resource Setup"
+16:    echo "2. Automated Audit with Alerts"
+17:    echo "3. Schedule Monitoring"
+18:    echo "4. Bulk Resource Operations"
+19:    echo "5. Custom Automation Workflow"
+20:    echo "0. Back to Main Menu"
+25:# @function interactive_resource_setup
+
+### ./build/aws-management-scripts-2.0.0/cloudshell.sh
+2:# Wrapper for running manage.sh in AWS CloudShell
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./build/aws-management-scripts-2.0.0/encrypt_docs.sh
+3:# @file encrypt_docs.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+29:PASSPHRASE_FILE=".docs_passphrase"
+53:        encrypted_file="$ENCRYPTED_DIR/${relative_path}.enc"
+83:    find "$ENCRYPTED_DIR" -name "*.enc" | while read -r encrypted_file; do
+85:        relative_path="${relative_path%.enc}"
+
+### ./build/aws-management-scripts-2.0.0/build.sh
+2:# @file build.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+15:CI_LOG_FILE="build_results.log"
+16:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+32:VERSION="2.0.0"
+52:    cp *.sh README.md "$BUILD_DIR/$PACKAGE_NAME/"
+53:    [[ -f .gitignore ]] && cp .gitignore "$BUILD_DIR/$PACKAGE_NAME/"
+56:    find "$BUILD_DIR/$PACKAGE_NAME" -name "*.sh" -exec chmod +x {} \;
+60:    tar -czf "$PACKAGE_NAME.tar.gz" "$PACKAGE_NAME"
+
+### ./build/aws-management-scripts-2.0.0/tools.sh
+3:# @file tools.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+17:    echo "  Unified AWS Management Tools Entry Point."
+29:    echo "1. Resource Overview    (tools/aws_manager.sh)"
+30:    echo "2. MFA Authentication   (tools/aws_mfa.sh)"
+31:    echo "3. Billing Analysis     (tools/billing.sh)"
+32:    echo "4. CloudFront Audit     (tools/cloudfront_audit.sh)"
+33:    echo "5. Run Integrations     (tools/integration_runner.sh)"
+34:    echo "6. Usage Summary        (tools/aws_usage.sh)"
+
+### ./build/aws-management-scripts-2.0.0/helper.sh
+10:  echo "Usage: $0 <category> <action> [args...]"
+38:    bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+42:      orchestrate) bash "$PROJECT_ROOT/bin/orchestrate.sh" ;;
+43:      integrations) bash "$PROJECT_ROOT/bin/integration_runner.sh" ;;
+49:      ai-tools) bash "$PROJECT_ROOT/bin/ai_tools.sh" ;;
+50:      analyze-ci-log) bash "$PROJECT_ROOT/bin/analyze_ci_log.sh" ;;
+51:      analyze-test-log) bash "$PROJECT_ROOT/bin/analyze_test_log.sh" ;;
+57:      config) cat "$PROJECT_ROOT/config/settings.conf" 2>/dev/null || echo "No config found." ;;
+
+### ./hub-logic/spend_hub.sh
+4:# @file spend-logic/spend_hub.sh
+6:# @description Maximum, minimum, balanced resource utilization with zero-spend focus
+7:# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
+14:source "$SCRIPT_DIR/../../lib/log_utils.sh"
+15:source "$SCRIPT_DIR/../../lib/aws_utils.sh"
+21:    echo "  optimize <mode>      Optimize resources for spend mode"
+44:source "$(dirname "$0")/../lib/config_loader.sh"
+47:# @brief AWS Free Tier resource limits
+51:  "ec2": {"hours": 750, "type": "t2.micro"},
+54:  "rds": {"hours": 750, "type": "db.t2.micro"},
+
+### ./hub-logic/optimizers/zero_spend.sh
+4:# @file spend-logic/optimizers/zero_spend.sh
+7:# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
+14:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+15:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+43:# @brief Monitor free tier resource consumption
+49:        echo "[DRY RUN] Would call: aws ec2 describe-instances, aws s3 ls, etc. for free tier usage check."
+54:        --query 'Reservations[*].Instances[?InstanceType==`t2.micro` && State.Name==`running`].LaunchTime' \
+56:    echo "EC2 t2.micro running: $ec2_hours/1 (750h monthly limit)"
+59:        awk '{sum+=$3} END {printf "%.2f", sum/1024/1024/1024}' || echo "0")
+66:# @brief Prevent cost-incurring resources
+
+### ./hub-logic/calculators/cost_predictor.sh
+4:# @file spend-logic/calculators/cost_predictor.sh
+6:# @description Predict costs based on resource usage patterns
+7:# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
+14:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+15:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+21:    echo "  breakdown    Show resource cost breakdown"
+48:        echo "[DRY RUN] Would call: aws ce get-cost-and-usage for daily and monthly prediction."
+55:        --query 'ResultsByTime[0].Total.BlendedCost.Amount' \
+60:    echo "Daily cost: \$$(printf '%.2f' "$current_daily")"
+61:    echo "Predicted monthly: \$$(printf '%.2f' "$predicted_monthly")"
+
+### ./hub-logic/policies/budget_enforcer.sh
+4:# @file spend-logic/policies/budget_enforcer.sh
+7:# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
+14:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+15:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+21:    echo "  shutdown         Emergency shutdown of non-essential resources"
+52:        echo "[DRY RUN] Would create AWS budget alert for amount: $budget_amount."
+56:    cat > /tmp/budget.json << EOF
+69:    cat > /tmp/notification.json << EOF
+80:            "Address": "${AWS_BUDGET_EMAIL:-admin@example.com}"
+88:        --budget file:///tmp/budget.json \
+
+### ./run/run.sh
+4:# This script is an example of how you might run a deployed script.
+6:# an EC2 user-data script, or a Systems Manager Run Command document.
+12:REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+17:    echo "Usage: $0 <script_path_relative_to_scripts_dir> [args...]"
+18:    echo "Example: $0 ec2/manage-instances.sh --action stop --instance-id i-12345"
+35:echo "--- Script execution finished. ---"
+
+### ./router-logic/routing/traffic_router.sh
+4:# @file router-logic/routing/traffic_router.sh
+5:# @brief Intelligent traffic routing based on resource availability
+6:# @description Route traffic to healthy resources with automatic failover
+9:# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+17:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+18:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+56:        echo "✅ i-1234567890abcdef0: 203.0.113.1 (healthy)"
+58:        echo "✅ Upstream config saved to /tmp/upstream.conf"
+64:        --query 'Reservations[*].Instances[*].[InstanceId,PublicIpAddress,PrivateIpAddress]' \
+94:        echo "✅ example-api: https://abc123.execute-api.us-east-1.amazonaws.com"
+
+### ./router-logic/failover/auto_failover.sh
+4:# @file router-logic/failover/auto_failover.sh
+6:# @description Automated failover detection and recovery for AWS resources
+9:# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+17:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+18:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+23:    echo "  detect        Detect resource failures"
+47:# @brief Detect resource failures across services
+58:        echo "Checking Lambda errors..."
+66:        --query 'Reservations[*].Instances[*].[InstanceId,State.Name,Tags[?Key==`Service`].Value|[0]]' \
+77:        --query 'DBInstances[?DBInstanceStatus!=`available`].[DBInstanceIdentifier,DBInstanceStatus]' \
+
+### ./router-logic/availability/resource_monitor.sh
+4:# @file router-logic/availability/resource_monitor.sh
+5:# @brief Real-time resource availability monitoring
+6:# @description Continuous monitoring of AWS resource health and availability
+9:# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+17:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+18:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+61:                --query 'length(Reservations[*].Instances[*])' --output text 2>/dev/null || echo "0")
+64:                --query 'length(Reservations[*].Instances[*])' --output text 2>/dev/null || echo "0")
+89:    local apis=$(aws apigateway get-rest-apis --query 'items[].id' --output text 2>/dev/null)
+99:        --query 'Functions[].FunctionName' --output text 2>/dev/null)
+
+### ./router-logic/router_hub.sh
+4:# @file router-logic/router_hub.sh
+5:# @brief Router Logic Hub - Resource availability management
+6:# @description Intelligent routing based on resource availability and health
+7:# @ai_optimization This script is designed for automation and AI workflows. Use --dry-run/--test to avoid unnecessary AWS calls and optimize token usage.
+14:source "$SCRIPT_DIR/../../lib/log_utils.sh"
+15:source "$SCRIPT_DIR/../../lib/aws_utils.sh"
+16:source "$SCRIPT_DIR/../core/config_loader.sh"
+21:    echo "  check <type>         Check resource availability (ec2|s3|all)"
+22:    echo "  route <service> <region>  Route to available resource (web|api|db)"
+44:# @function check_resource_availability
+
+### ./backend/run.sh
+3:# @file backend/run.sh
+10:CI_LOG_FILE="run_results.log"
+11:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../../bin/ci_log_utils.sh"
+18:    source venv/bin/activate
+19:    pip install -r requirements.txt
+21:    source venv/bin/activate
+25:export FLASK_APP=api/server.py
+30:echo "🚀 Starting AWS Management API Server..."
+33:echo "  GET  /api/resources"
+39:python3 api/server.py
+
+### ./backup_verification.sh
+3:# @file backup_verification.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+17:    echo "  Comprehensive backup verification before migration."
+30:echo "1. Git Status Check:"
+31:if git status --porcelain | grep -q .; then
+40:echo -e "\n2. Remote Sync Check:"
+51:echo -e "\n3. File Inventory:"
+52:total_files=$(find . -type f \( -name "*.sh" -o -name "*.py" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.yml" -o -name "*.conf" \) | wc -l)
+56:echo -e "\n4. Core Components:"
+
+### ./deploy.sh
+2:# @file deploy.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+15:CI_LOG_FILE="deploy_results.log"
+16:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+34:VERSION="2.0.0"
+35:PACKAGE="aws-management-scripts-$VERSION.tar.gz"
+38:    echo "Deploying locally..."
+39:    local install_dir="$HOME/.local/bin/aws-management"
+40:    mkdir -p "$HOME/.local/bin"
+
+### ./lib/aws_config.sh
+1:# moved from integrations/aws_config.sh
+
+### ./lib/log_utils.sh
+3:# @file lib/log_utils.sh
+9:LOG_FILE=${LOG_FILE:-/tmp/aws-mgmt.log}
+24:        mv "$LOG_FILE" "${LOG_FILE}.old"
+
+### ./lib/integrations.sh
+5:  echo "Usage: $0 [slack|anomaly|cloudwatch] [args...]"
+14:    # ...insert code from slack_notify.sh...
+17:    # ...insert code from cost_anomaly.sh...
+20:    # ...insert code from cloudwatch_metrics.sh...
+
+### ./lib/helpers.sh
+1:# moved from core/helpers.sh
+
+### ./lib/terraform_sync.sh
+1:# moved from integrations/terraform_sync.sh
+
+### ./lib/aws_utils.sh
+1:# AWS helper utilities split from utils.sh
+
+### ./lib/config_loader.sh
+1:# moved from core/config_loader.sh
+
+### ./lib/state_manager.sh
+1:# moved from core/state_manager.sh
+
+### ./lib/automation.sh
+1:# moved from core/automation.sh
+
+### ./aws-cli.sh
+3:# @file aws-cli.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+16:    echo "  Main entry point for AWS Management Scripts."
+22:    echo "  1  Tools Menu           (tools.sh)"
+23:    echo "  2  Automation Client    (client/aws_client.sh)"
+24:    echo "  3  Build System         (build.sh)"
+25:    echo "  4  Deploy System        (deploy.sh)"
+35:        1) ./tools.sh ;;
+36:        2) ./client/aws_client.sh ;;
+
+### ./tools/apply_patch.sh
+4:# apply_patch.sh: Applies a unified diff file to the repository.
+5:# This script provides a standardized way to apply AI-assisted edits.
+8:    echo "Usage: $0 <path_to_patch_file.diff>"
+9:    echo "Example: ./tools/apply_patch.sh my_feature.diff"
+22:echo "--- Patch applied successfully. Please review the changes. ---"
+
+### ./tools/enhanced_analyzer.sh
+3:# @file tools/enhanced_analyzer.sh
+10:LOG_FILE="/tmp/aws-mgmt-analysis.log"
+23:    local report_file="structure_analysis.txt"
+33:        find . -type d -not -path "./.git*" | sort | while read -r dir; do
+40:        find . -type f -not -path "./.git*" | sed 's/.*\.//' | sort | uniq -c | sort -nr
+44:        find . -type f -size +10k -not -path "./.git*" -exec ls -lh {} \; | awk '{print $5, $9}'
+56:    local report_file="shell_analysis.txt"
+67:        find . -name "*.sh" -type f | while read -r script; do
+129:    local report_file="dependency_analysis.txt"
+138:        find . -name "*.sh" -exec grep -l "source\|\\." {} \; | while read -r script; do
+
+### ./tools/analyze.sh
+7:# --- 1. Shell Script Linting (shellcheck) ---
+9:echo "=> Running ShellCheck for static analysis..."
+11:    echo "Warning: shellcheck is not installed. Skipping linting."
+12:    echo "         To install, see: https://github.com/koalaman/shellcheck"
+14:    # Find all shell scripts, excluding .git directory
+15:    SCRIPTS_TO_CHECK=$(find . -name "*.sh" -not -path "./.git/*")
+18:            echo "ShellCheck found issues."
+21:            echo "ShellCheck passed."
+24:        echo "No shell scripts found to check."
+28:# --- 2. Executable Permissions Check ---
+
+### ./tools/file_analyzer.sh
+3:# @file tools/file_analyzer.sh
+10:source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || {
+11:    mkdir -p "$(dirname "$0")/../lib"
+12:    cat > "$(dirname "$0")/../lib/log_utils.sh" << 'EOF'
+16:LOG_FILE=${LOG_FILE:-/tmp/aws-mgmt.log}
+29:    source "$(dirname "$0")/../lib/log_utils.sh"
+55:    local extension="${file##*.}"
+115:    local import_count=$(grep -c "^import\|^from.*import" "$file" 2>/dev/null || echo "0")
+149:    elif python3 -c "import json; json.load(open('$file'))" 2>/dev/null; then
+160:    local dir="${1:-.}"
+
+### ./switch-logic/stable/stable_config.sh
+4:# @file switch-logic/stable/stable_config.sh
+9:# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+17:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+18:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+121:✅ AWS Resource Overview
+162:            echo "⚠️  Attempt $retry_count failed, retrying..."
+191:    local core_scripts=("aws_manager.sh" "billing.sh" "aws_mfa.sh")
+194:        if [[ -x "../$script" ]]; then
+205:    if [[ -f "../config/settings.conf" ]]; then
+210:    if [[ -d "$HOME/.aws_management_state" ]]; then
+
+### ./switch-logic/switch_hub.sh
+4:# @file switch-logic/switch_hub.sh
+9:# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+17:source "$SCRIPT_DIR/../../lib/log_utils.sh"
+18:source "$SCRIPT_DIR/../../lib/aws_utils.sh"
+19:source "$SCRIPT_DIR/../core/config_loader.sh"
+49:SWITCH_STATE_FILE="$HOME/.aws_management_state/switch_mode"
+92:            log_info "• Conservative resource usage"
+117:        echo "[DRY-RUN] Would log mode change to $HOME/.aws_management_state/mode_changes.log"
+122:    echo "Applying stable configurations..."
+132:    echo "$(date): Switched to stable mode" >> "$HOME/.aws_management_state/mode_changes.log"
+
+### ./switch-logic/evaluation/eval_config.sh
+4:# @file switch-logic/evaluation/eval_config.sh
+9:# @ai-usage: This script is batch-enhanced for AI/automation workflows, supports dry-run/test mode, and is ready for integration with AI agents and workflow orchestrators.
+17:source "$SCRIPT_DIR/../../../lib/log_utils.sh"
+18:source "$SCRIPT_DIR/../../../lib/aws_utils.sh"
+100:🧪 ML-based Resource Optimization
+109:📊 Resource Usage Analytics
+117:    local session_dir="$HOME/.aws_management_state/evaluation_sessions/$session_id"
+129:    cat > "$session_dir/session_info.json" << EOF
+143:    echo "$(date): Evaluation session started: $session_id" >> "$session_dir/session.log"
+144:    echo "$session_id" > "$HOME/.aws_management_state/current_eval_session"
+
+### ./bin/aws.sh
+2:# Wrapper for running manage.sh in AWS CLI/automation
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./bin/manage_aws.sh
+1:# moved from tools/aws_manager.sh
+
+### ./bin/orchestrate.sh
+1:# moved from bin/manage.sh (main orchestrator)
+
+### ./bin/backup_verification.sh
+3:# @file backup_verification.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+17:    echo "  Comprehensive backup verification before migration."
+30:echo "1. Git Status Check:"
+31:if git status --porcelain | grep -q .; then
+40:echo -e "\n2. Remote Sync Check:"
+51:echo -e "\n3. File Inventory:"
+52:total_files=$(find . -type f \( -name "*.sh" -o -name "*.py" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.yml" -o -name "*.conf" \) | wc -l)
+56:echo -e "\n4. Core Components:"
+
+### ./bin/deploy.sh
+2:# @file deploy.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+15:CI_LOG_FILE="deploy_results.log"
+16:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+34:VERSION="2.0.0"
+35:PACKAGE="aws-management-scripts-$VERSION.tar.gz"
+38:    echo "Deploying locally..."
+39:    local install_dir="$HOME/.local/bin/aws-management"
+40:    mkdir -p "$HOME/.local/bin"
+
+### ./bin/analyze_ci_log.sh
+3:# analyze_ci_log.sh: Analyzes structured JSON logs from the CI process.
+4:# Requires `jq` to be installed.
+6:LOG_FILE="${CI_LOG_FILE:-ci.log}"
+9:    echo "Error: jq is not installed. This script requires jq for log analysis."
+10:    echo "Please install jq to continue."
+24:ERROR_COUNT=$(echo "$JSON_LOGS" | jq -s 'map(select(.level=="ERROR")) | length')
+25:WARN_COUNT=$(echo "$JSON_LOGS" | jq -s 'map(select(.level=="WARN")) | length')
+36:    echo "$JSON_LOGS" | jq 'select(.level=="ERROR")'
+38:    echo "Analysis finished with errors."
+41:echo "Analysis complete."
+
+### ./bin/report.sh
+5:  echo "Usage: $0 [usage|billing|cloudfront] [args...]"
+14:    # ...insert code from report_aws_usage.sh...
+17:    # ...insert code from report_billing.sh...
+20:    # ...insert code from audit_cloudfront.sh...
+
+### ./bin/changed_files.sh
+1:# moved from scripts/changed_files.sh
+
+### ./bin/archive_tools.sh
+5:  echo "Usage: $0 [zip|export] [args...]"
+13:    # ...insert code from zip_private_docs.sh...
+16:    # ...insert code from export_chat.sh...
+
+### ./bin/aws-cli.sh
+3:# @file aws-cli.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+16:    echo "  Main entry point for AWS Management Scripts."
+22:    echo "  1  Tools Menu           (tools.sh)"
+23:    echo "  2  Automation Client    (client/aws_client.sh)"
+24:    echo "  3  Build System         (build.sh)"
+25:    echo "  4  Deploy System        (deploy.sh)"
+35:        1) ./tools.sh ;;
+36:        2) ./client/aws_client.sh ;;
+
+### ./bin/test_all.sh
+2:# Automated test for all .sh scripts: checks --help or usage output
+3:# Logs output to test_results.log
+6:# - All scripts must source shared libraries using SCRIPT_DIR pattern.
+7:# - Scripts requiring arguments or external dependencies are skipped in CI.
+8:# - Do not test this runner itself.
+9:# - Document all fixes and path conventions in DOCS_CI_POLICY_AND_TROUBLESHOOTING.md and script headers.
+12:#   Project root scripts:   source "$SCRIPT_DIR/lib/log_utils.sh"
+13:#   Subdirectory scripts:   source "$SCRIPT_DIR/../lib/log_utils.sh"
+15:# To add a new script, ensure it follows these conventions.
+20:LOG_FILE="test_results.log"
+
+### ./bin/mfa_aws.sh
+1:# moved from tools/aws_mfa.sh
+
+### ./bin/ci_log_utils.sh
+4:# Provides standardized logging and status reporting for all pipeline stages.
+5:# Source this in build/deploy/run scripts for consistent log format and analysis.
+32:# Usage: export CI_LOG_FILE=build_results.log (or deploy_results.log, etc)
+
+### ./bin/integration_runner.sh
+1:# moved from bin/run_integration.sh (integration runner)
+
+### ./bin/cloudshell.sh
+2:# Wrapper for running manage.sh in AWS CloudShell
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./bin/encrypt_docs.sh
+3:# @file encrypt_docs.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+29:PASSPHRASE_FILE=".docs_passphrase"
+53:        encrypted_file="$ENCRYPTED_DIR/${relative_path}.enc"
+83:    find "$ENCRYPTED_DIR" -name "*.enc" | while read -r encrypted_file; do
+85:        relative_path="${relative_path%.enc}"
+
+### ./bin/build.sh
+2:# @file build.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+15:CI_LOG_FILE="build_results.log"
+16:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+32:VERSION="2.0.0"
+52:    cp *.sh README.md "$BUILD_DIR/$PACKAGE_NAME/"
+53:    [[ -f .gitignore ]] && cp .gitignore "$BUILD_DIR/$PACKAGE_NAME/"
+56:    find "$BUILD_DIR/$PACKAGE_NAME" -name "*.sh" -exec chmod +x {} \;
+60:    tar -czf "$PACKAGE_NAME.tar.gz" "$PACKAGE_NAME"
+
+### ./bin/analyze_test_log.sh
+2:# Analyze test_results.log for CI/CD and advanced reporting
+6:# - All scripts must source shared libraries using the SCRIPT_DIR pattern.
+7:# - Scripts requiring arguments or external dependencies are skipped in CI.
+8:# - If you see '[FAIL]' due to missing files, check path conventions in test_all.sh and script headers.
+9:# - If you see '[FAIL]' due to timeouts, check for missing dependencies or required arguments.
+10:# - If you see '[SKIP]', the script is intentionally excluded from CI (see test_all.sh for skip list).
+11:# - To add or remove scripts from CI, update the skip list in test_all.sh.
+12:# - Always check the error context and timestamps in test_results.log for debugging.
+13:# - Document any new fixes or conventions here for future maintainers.
+16:#   - Fixed path sourcing for log_utils.sh and aws_utils.sh using SCRIPT_DIR.
+
+### ./bin/ai_tools.sh
+5:  echo "Usage: $0 [batch|token] [args...]"
+13:    # ...insert code from ai_batch_request.sh...
+16:    # ...insert code from ai_token_usage.sh...
+
+### ./bin/aws_client.sh
+1:# moved from client/aws_client.sh
+
+### ./frontend/run.sh
+3:# @file frontend/run.sh
+9:echo "🌐 Starting AWS Management Frontend..."
+15:if curl -s http://localhost:5000/api/resources >/dev/null 2>&1; then
+18:    echo "⚠️  Backend API not detected - start with: cd backend && ./run.sh"
+25:python3 server.py
+
+### ./client/aws_client.sh
+3:# @file client/aws_client.sh
+9:source "$(dirname "$0")/../core/helpers.sh" 2>/dev/null || echo "Warning: helpers.sh not found"
+10:source "$(dirname "$0")/../core/automation.sh"
+15:    echo "1. Interactive Resource Setup"
+16:    echo "2. Automated Audit with Alerts"
+17:    echo "3. Schedule Monitoring"
+18:    echo "4. Bulk Resource Operations"
+19:    echo "5. Custom Automation Workflow"
+20:    echo "0. Back to Main Menu"
+25:# @function interactive_resource_setup
+
+### ./cloudshell.sh
+2:# Wrapper for running manage.sh in AWS CloudShell
+6:bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+7:bash "$PROJECT_ROOT/bin/orchestrate.sh" "$@"
+
+### ./docs/old_log_utils.sh
+3:# log_utils.sh: Provides basic logging functions.
+4:# log_utils.sh: Provides enhanced, structured logging capabilities.
+6:# Centralized log file location. Can be overridden by environment variable.
+8:# Gemini Code Assist supports plain-text files. Other file types, like PDFs and images, are not directly supported at this time. If a version of the file is available in a plain text format, please use that instead, or copy the relevant contents from the file into your prompt.
+10:# The code change produced by Gemini cannot be automatically applied. You can manually apply the change or ask Gemini to try again.
+
+### ./encrypt_docs.sh
+3:# @file encrypt_docs.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+29:PASSPHRASE_FILE=".docs_passphrase"
+53:        encrypted_file="$ENCRYPTED_DIR/${relative_path}.enc"
+83:    find "$ENCRYPTED_DIR" -name "*.enc" | while read -r encrypted_file; do
+85:        relative_path="${relative_path%.enc}"
+
+### ./build.sh
+2:# @file build.sh
+11:source "$SCRIPT_DIR/lib/log_utils.sh"
+12:source "$SCRIPT_DIR/lib/aws_utils.sh"
+15:CI_LOG_FILE="build_results.log"
+16:source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/ci_log_utils.sh"
+32:VERSION="2.0.0"
+52:    cp *.sh README.md "$BUILD_DIR/$PACKAGE_NAME/"
+53:    [[ -f .gitignore ]] && cp .gitignore "$BUILD_DIR/$PACKAGE_NAME/"
+56:    find "$BUILD_DIR/$PACKAGE_NAME" -name "*.sh" -exec chmod +x {} \;
+60:    tar -czf "$PACKAGE_NAME.tar.gz" "$PACKAGE_NAME"
+
+### ./tools.sh
+3:# @file tools.sh
+12:source "$SCRIPT_DIR/lib/log_utils.sh"
+13:source "$SCRIPT_DIR/lib/aws_utils.sh"
+17:    echo "  Unified AWS Management Tools Entry Point."
+29:    echo "1. Resource Overview    (tools/aws_manager.sh)"
+30:    echo "2. MFA Authentication   (tools/aws_mfa.sh)"
+31:    echo "3. Billing Analysis     (tools/billing.sh)"
+32:    echo "4. CloudFront Audit     (tools/cloudfront_audit.sh)"
+33:    echo "5. Run Integrations     (tools/integration_runner.sh)"
+34:    echo "6. Usage Summary        (tools/aws_usage.sh)"
+
+### ./helper.sh
+10:  echo "Usage: $0 <category> <action> [args...]"
+38:    bash "$PROJECT_ROOT/scripts/manage.sh" "$@"
+42:      orchestrate) bash "$PROJECT_ROOT/bin/orchestrate.sh" ;;
+43:      integrations) bash "$PROJECT_ROOT/bin/integration_runner.sh" ;;
+49:      ai-tools) bash "$PROJECT_ROOT/bin/ai_tools.sh" ;;
+50:      analyze-ci-log) bash "$PROJECT_ROOT/bin/analyze_ci_log.sh" ;;
+51:      analyze-test-log) bash "$PROJECT_ROOT/bin/analyze_test_log.sh" ;;
+57:      config) cat "$PROJECT_ROOT/config/settings.conf" 2>/dev/null || echo "No config found." ;;
+
+## Python Imports
+### ./backend/api/server.py
+7:from flask import Flask, jsonify, request
+8:import subprocess
+9:import json
+10:import os
+
+### ./backend/services/aws_service.py
+7:import boto3
+8:import json
+9:from datetime import datetime, timedelta
+
+### ./backend/models/response.py
+7:from dataclasses import dataclass
+8:from typing import Any, Optional
+9:import json
+
+### ./frontend/server.py
+7:import http.server
+8:import socketserver
+9:import os
+
+## External Commands Used
+    186 aws
+     30 docker
+     16 jq
+      8 curl

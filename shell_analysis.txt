@@ -1,0 +1,584 @@
+# Shell Scripts Analysis
+# Generated: Fri Jul  4 12:57:34 UTC 2025
+# ======================
+
+## Analyzing: ./vscode.sh
+  Lines: 7, Size: 303 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./aws.sh
+  Lines: 7, Size: 306 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/vscode.sh
+  Lines: 7, Size: 303 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/aws.sh
+  Lines: 7, Size: 306 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/backup_verification.sh
+  Lines: 115, Size: 3345 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 1
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/deploy.sh
+  Lines: 133, Size: 3670 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 8
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/aws-cli.sh
+  Lines: 70, Size: 1909 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 2
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/client/aws_client.sh
+  Lines: 88, Size: 3049 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 4
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/cloudshell.sh
+  Lines: 7, Size: 302 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/encrypt_docs.sh
+  Lines: 100, Size: 2892 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 3
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/build.sh
+  Lines: 103, Size: 3451 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 4
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/tools.sh
+  Lines: 178, Size: 6961 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 7
+  ✅ Error handling: Present
+
+## Analyzing: ./build/aws-management-scripts-2.0.0/helper.sh
+  Lines: 64, Size: 1642 bytes
+  ❌ Syntax: Invalid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 1
+  ✅ Error handling: Present
+
+## Analyzing: ./hub-logic/spend_hub.sh
+  Lines: 190, Size: 5950 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 10
+  ✅ Error handling: Present
+
+## Analyzing: ./hub-logic/optimizers/zero_spend.sh
+  Lines: 144, Size: 4643 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 4
+  ✅ Error handling: Present
+
+## Analyzing: ./hub-logic/calculators/cost_predictor.sh
+  Lines: 149, Size: 5287 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 8
+  ✅ Error handling: Present
+
+## Analyzing: ./hub-logic/policies/budget_enforcer.sh
+  Lines: 183, Size: 6243 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 6
+  ✅ Error handling: Present
+
+## Analyzing: ./run/run.sh
+  Lines: 34, Size: 972 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./router-logic/routing/traffic_router.sh
+  Lines: 258, Size: 9407 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 7
+  ✅ Error handling: Present
+
+## Analyzing: ./router-logic/failover/auto_failover.sh
+  Lines: 262, Size: 10791 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 6
+  ✅ Error handling: Present
+
+## Analyzing: ./router-logic/availability/resource_monitor.sh
+  Lines: 213, Size: 8429 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 5
+  ✅ Error handling: Present
+
+## Analyzing: ./router-logic/router_hub.sh
+  Lines: 263, Size: 10046 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 6
+  ✅ Error handling: Present
+
+## Analyzing: ./test/test_runner.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./backend/run.sh
+  Lines: 40, Size: 1004 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./backup_verification.sh
+  Lines: 115, Size: 3345 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 1
+  ✅ Error handling: Present
+
+## Analyzing: ./deploy.sh
+  Lines: 133, Size: 3670 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 8
+  ✅ Error handling: Present
+
+## Analyzing: ./lib/cost_anomaly.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/aws_config.sh
+  Lines: 1, Size: 40 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/slack_notify.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/log_utils.sh
+  Lines: 75, Size: 1852 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 7
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/integrations.sh
+  Lines: 25, Size: 533 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 1
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/helpers.sh
+  Lines: 1, Size: 29 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/zip_private_docs.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/terraform_sync.sh
+  Lines: 1, Size: 44 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/aws_utils.sh
+  Lines: 1, Size: 43 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/cloudwatch_metrics.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/config_loader.sh
+  Lines: 1, Size: 35 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/state_manager.sh
+  Lines: 1, Size: 35 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/automation.sh
+  Lines: 1, Size: 32 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./lib/utils.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./aws-cli.sh
+  Lines: 70, Size: 1909 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 2
+  ✅ Error handling: Present
+
+## Analyzing: ./tools/apply_patch.sh
+  Lines: 21, Size: 575 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./tools/enhanced_analyzer.sh
+  Lines: 296, Size: 9822 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 7
+  ✅ Error handling: Present
+
+## Analyzing: ./tools/analyze.sh
+  Lines: 73, Size: 2277 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./tools/file_analyzer.sh
+  Lines: 226, Size: 6540 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 12
+  ✅ Error handling: Present
+
+## Analyzing: ./switch-logic/stable/stable_config.sh
+  Lines: 232, Size: 7575 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 7
+  ✅ Error handling: Present
+
+## Analyzing: ./switch-logic/switch_hub.sh
+  Lines: 262, Size: 8895 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 9
+  ✅ Error handling: Present
+
+## Analyzing: ./switch-logic/evaluation/eval_config.sh
+  Lines: 281, Size: 9827 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 7
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/aws.sh
+  Lines: 7, Size: 306 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/manage_aws.sh
+  Lines: 1, Size: 34 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/orchestrate.sh
+  Lines: 1, Size: 47 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/backup_verification.sh
+  Lines: 115, Size: 3345 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 1
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/deploy.sh
+  Lines: 133, Size: 3670 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 8
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/analyze_ci_log.sh
+  Lines: 41, Size: 1039 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/report.sh
+  Lines: 25, Size: 536 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 1
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/changed_files.sh
+  Lines: 1, Size: 38 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/archive_tools.sh
+  Lines: 21, Size: 382 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 1
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/aws-cli.sh
+  Lines: 70, Size: 1909 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 2
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/test_all.sh
+  Lines: 90, Size: 3497 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/mfa_aws.sh
+  Lines: 1, Size: 30 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/ci_log_utils.sh
+  Lines: 32, Size: 833 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 5
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/integration_runner.sh
+  Lines: 1, Size: 57 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/cloudshell.sh
+  Lines: 7, Size: 302 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/encrypt_docs.sh
+  Lines: 100, Size: 2892 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 3
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/build.sh
+  Lines: 103, Size: 3451 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 4
+  ✅ Error handling: Present
+
+## Analyzing: ./bin/analyze_test_log.sh
+  Lines: 49, Size: 2061 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/ai_tools.sh
+  Lines: 21, Size: 367 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 1
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./bin/aws_client.sh
+  Lines: 1, Size: 34 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./deploy/deploy.sh
+  Lines: 0, Size: 0 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./frontend/run.sh
+  Lines: 24, Size: 646 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./client/aws_client.sh
+  Lines: 88, Size: 3049 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 4
+  ✅ Error handling: Present
+
+## Analyzing: ./cloudshell.sh
+  Lines: 7, Size: 302 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ✅ Error handling: Present
+
+## Analyzing: ./docs/old_log_utils.sh
+  Lines: 10, Size: 620 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 0
+0
+  ⚠️  Error handling: Missing 'set -e'
+
+## Analyzing: ./encrypt_docs.sh
+  Lines: 100, Size: 2892 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 3
+  ✅ Error handling: Present
+
+## Analyzing: ./build.sh
+  Lines: 103, Size: 3451 bytes
+  ✅ Syntax: Valid
+  ✅ Shebang: Present
+  Functions: 4
+  ✅ Error handling: Present
+
+## Analyzing: ./tools.sh
+  Lines: 178, Size: 6961 bytes
+  ✅ Syntax: Valid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 7
+  ✅ Error handling: Present
+
+## Analyzing: ./helper.sh
+  Lines: 64, Size: 1642 bytes
+  ❌ Syntax: Invalid
+  ⚠️  Shebang: Missing or non-standard
+  Functions: 1
+  ✅ Error handling: Present
+
+## Summary
+Total scripts: 0
+Valid syntax: 0
+Issues found: 0

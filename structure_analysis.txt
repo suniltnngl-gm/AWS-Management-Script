@@ -1,0 +1,87 @@
+# AWS Management Scripts - Structure Analysis
+# Generated: Fri Jul  4 12:57:34 UTC 2025
+# ============================================
+
+## Directory Structure
+  ./ (35 files)
+  ./.vscode/ (1 files)
+  ./AWS-Management-Script/ (0 files)
+  ./backend/ (3 files)
+  ./backend/api/ (1 files)
+  ./backend/models/ (1 files)
+  ./backend/services/ (1 files)
+  ./bin/ (20 files)
+  ./build/ (1 files)
+  ./build/aws-management-scripts-2.0.0/ (12 files)
+  ./build/aws-management-scripts-2.0.0/client/ (1 files)
+  ./build/aws-management-scripts-2.0.0/config/ (1 files)
+  ./build/aws-management-scripts-2.0.0/templates/ (1 files)
+  ./chat/ (6 files)
+  ./client/ (1 files)
+  ./config/ (1 files)
+  ./deploy/ (1 files)
+  ./docs/ (3 files)
+  ./documents/ (1 files)
+  ./documents/refactor/ (3 files)
+  ./documents/whatnext/ (1 files)
+  ./encrypted_docs/ (1 files)
+  ./encrypted_docs/refactor/ (3 files)
+  ./encrypted_docs/whatnext/ (1 files)
+  ./frontend/ (3 files)
+  ./frontend/components/ (1 files)
+  ./frontend/public/ (1 files)
+  ./frontend/src/ (1 files)
+  ./hub-logic/ (1 files)
+  ./hub-logic/calculators/ (1 files)
+  ./hub-logic/optimizers/ (1 files)
+  ./hub-logic/policies/ (1 files)
+  ./lib/ (14 files)
+  ./router-logic/ (1 files)
+  ./router-logic/availability/ (1 files)
+  ./router-logic/failover/ (1 files)
+  ./router-logic/routing/ (1 files)
+  ./run/ (1 files)
+  ./switch-logic/ (1 files)
+  ./switch-logic/controllers/ (0 files)
+  ./switch-logic/evaluation/ (1 files)
+  ./switch-logic/stable/ (1 files)
+  ./templates/ (1 files)
+  ./test/ (1 files)
+  ./tools/ (5 files)
+  ./tools/AWS-Management-Script/ (0 files)
+
+## File Type Distribution
+     77 sh
+     22 md
+      5 enc
+      4 py
+      3 txt
+      3 log
+      3 json
+      2 js
+      2 conf
+      1 yml
+      1 ps1
+      1 html
+      1 gz
+      1 gitignore
+      1 docs_passphrase
+      1 6
+      1 5
+      1 4
+      1 3
+      1 2
+      1 1
+      1 /frontend/Dockerfile
+      1 /backend/Dockerfile
+      1 /Makefile
+      1 /FETCH_HEAD
+      1 /Dockerfile
+
+## Large Files (>10KB)
+11K ./router-logic/failover/auto_failover.sh
+16K ./test_results.log.1
+34K ./encrypted_docs/q-dev-chat-2025-07-02.md.enc
+34K ./documents/q-dev-chat-2025-07-02.md
+18K ./test_results.log.6
+17K ./test_results.log.4

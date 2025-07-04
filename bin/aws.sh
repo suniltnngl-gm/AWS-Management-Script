@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Enhanced logging
+source "$(dirname "$0")/../lib/log_utils.sh" 2>/dev/null || true
 # Wrapper for running manage.sh in AWS CLI/automation
 set -e
 SCRIPT_PATH="$(readlink -f "$0" 2>/dev/null || realpath "$0" 2>/dev/null || echo "$0")"
